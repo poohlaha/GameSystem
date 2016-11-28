@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11201" systemVersion="16A323" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11161"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!-- 出货管理-->
+        <scene sceneID="BwJ-gt-MQY">
+            <objects>
+                <tableViewController storyboardIdentifier="ShipmentTableViewController" id="dJy-9B-dQg" customClass="ShipmentTableViewController" customModule="GameSystem" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="6cF-fh-sqG">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <prototypes>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="h32-xL-WUU">
+                                <rect key="frame" x="0.0" y="92" width="375" height="44"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="h32-xL-WUU" id="aMN-jG-4hE">
+                                    <frame key="frameInset" width="375" height="43"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                </tableViewCellContentView>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="dJy-9B-dQg" id="kJc-ur-c21"/>
+                            <outlet property="delegate" destination="dJy-9B-dQg" id="SBT-Rv-lpV"/>
+                        </connections>
+                    </tableView>
+                    <navigationItem key="navigationItem" title=" 出货管理" id="aqD-BD-1D1">
+                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="d8O-4p-jza">
+                            <connections>
+                                <action selector="addShipment:" destination="dJy-9B-dQg" id="sFZ-Yw-nz2"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                    <connections>
+                        <outlet property="addShipmentBtn" destination="d8O-4p-jza" id="Nog-df-dQe"/>
+                    </connections>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="9y4-R9-1v1" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="87.200000000000003" y="91.304347826086968"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="Nlp-hZ-GCs">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="vhL-Lg-xlT" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="EhO-Io-3cw">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="dJy-9B-dQg" kind="relationship" relationship="rootViewController" id="LbY-6S-JGb"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="yU7-FZ-BxC" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-852" y="91.304347826086968"/>
+        </scene>
+    </scenes>
+</document>

@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11201" systemVersion="16A323" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11161"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--角色-->
+        <scene sceneID="t8o-bP-MXP">
+            <objects>
+                <viewController id="Fu5-PJ-elj" customClass="RoleManageTableViewController" customModule="GameSystem" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="Vpt-ed-3bj"/>
+                        <viewControllerLayoutGuide type="bottom" id="XwZ-TM-1Om"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="DHI-Qy-gk5">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <tabBarItem key="tabBarItem" title="角色" id="cTN-e4-WQl"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="NMe-XD-idH" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-174" y="143"/>
+        </scene>
+        <!--查询-->
+        <scene sceneID="Ntx-fC-hf5">
+            <objects>
+                <viewController id="gF7-db-Q7u" customClass="RoleQueryTableViewController" customModule="GameSystem" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="y3t-P4-OV7"/>
+                        <viewControllerLayoutGuide type="bottom" id="J7y-w8-eXl"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="IVs-hX-pJi">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <tabBarItem key="tabBarItem" title="查询" id="dC5-T0-32K"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="xMM-1k-Ns8" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-174" y="-512"/>
+        </scene>
+        <!--Tab Bar Controller-->
+        <scene sceneID="wxr-NZ-uhQ">
+            <objects>
+                <tabBarController storyboardIdentifier="RoleManageTabBarController" id="0ec-Na-7hg" sceneMemberID="viewController">
+                    <tabBar key="tabBar" contentMode="scaleToFill" id="bDe-uV-u5T">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="49"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                    </tabBar>
+                    <connections>
+                        <segue destination="gF7-db-Q7u" kind="relationship" relationship="viewControllers" id="ATC-wK-lf8"/>
+                        <segue destination="Fu5-PJ-elj" kind="relationship" relationship="viewControllers" id="2t6-8L-bNM"/>
+                    </connections>
+                </tabBarController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="hlK-x3-hlp" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-1126" y="-185"/>
+        </scene>
+    </scenes>
+</document>

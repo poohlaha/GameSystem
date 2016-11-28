@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11201" systemVersion="16A323" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11161"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--Add Game Account View Controller-->
+        <scene sceneID="af0-1S-X5W">
+            <objects>
+                <viewController id="mOu-xv-Ykh" customClass="AddGameAccountViewController" customModule="GameSystem" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="7gc-kn-LHD"/>
+                        <viewControllerLayoutGuide type="bottom" id="NUN-eV-74X"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="fBa-Bj-gdi">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <stackView opaque="NO" contentMode="scaleToFill" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="hkV-FV-Hga">
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="游戏名称:" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="MFV-bR-PqS">
+                                        <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="70U-6N-Kev">
+                                        <nil key="textColor"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <textInputTraits key="textInputTraits"/>
+                                    </textField>
+                                </subviews>
+                            </stackView>
+                            <stackView opaque="NO" contentMode="scaleToFill" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="tgz-c3-N6U">
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="游戏公司名字:" textAlignment="justified" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kd6-So-ei2">
+                                        <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="X2Q-hG-LnY">
+                                        <nil key="textColor"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <textInputTraits key="textInputTraits"/>
+                                    </textField>
+                                </subviews>
+                            </stackView>
+                            <stackView opaque="NO" contentMode="scaleToFill" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="BGp-QC-32u">
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="游戏公司代码:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ck6-Rk-cAB">
+                                        <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="gY2-Yx-ehC">
+                                        <nil key="textColor"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <textInputTraits key="textInputTraits"/>
+                                    </textField>
+                                </subviews>
+                            </stackView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="hkV-FV-Hga" firstAttribute="top" secondItem="7gc-kn-LHD" secondAttribute="bottom" id="5ny-Kc-k4H"/>
+                            <constraint firstAttribute="trailing" secondItem="tgz-c3-N6U" secondAttribute="trailing" constant="10" id="cQI-EG-Y6l"/>
+                            <constraint firstItem="BGp-QC-32u" firstAttribute="leading" secondItem="fBa-Bj-gdi" secondAttribute="leading" constant="10" id="g5T-gh-qyW"/>
+                            <constraint firstItem="tgz-c3-N6U" firstAttribute="top" secondItem="hkV-FV-Hga" secondAttribute="bottom" constant="20" id="kaE-zV-nog"/>
+                            <constraint firstAttribute="trailing" secondItem="BGp-QC-32u" secondAttribute="trailing" constant="10" id="n8n-zr-DIg"/>
+                            <constraint firstItem="tgz-c3-N6U" firstAttribute="leading" secondItem="fBa-Bj-gdi" secondAttribute="leading" constant="10" id="pWc-Tg-NTs"/>
+                            <constraint firstAttribute="trailing" secondItem="hkV-FV-Hga" secondAttribute="trailing" constant="10" id="q2Z-ok-ccg"/>
+                            <constraint firstItem="hkV-FV-Hga" firstAttribute="leading" secondItem="fBa-Bj-gdi" secondAttribute="leading" constant="10" id="ti3-fi-HIa"/>
+                            <constraint firstItem="BGp-QC-32u" firstAttribute="top" secondItem="tgz-c3-N6U" secondAttribute="bottom" constant="20" id="uD9-cA-GHP"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="gameCompanyCode" destination="gY2-Yx-ehC" id="Qij-uf-7JJ"/>
+                        <outlet property="gameCompanyNameText" destination="X2Q-hG-LnY" id="bF0-N3-qR5"/>
+                        <outlet property="gameNameText" destination="70U-6N-Kev" id="O2D-xa-Iwx"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="gAZ-Ek-3xP" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-1481" y="374"/>
+        </scene>
+    </scenes>
+</document>
