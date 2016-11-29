@@ -44,11 +44,6 @@ class RoleContactTableViewController: BaseTableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        loadAllRolesList()
-        initTableIndex()
-        addHeader()
-        addFooter()
         self.navigationController?.isNavigationBarHidden = false
     }
     
@@ -136,6 +131,11 @@ class RoleContactTableViewController: BaseTableViewController {
     }
     
     override func viewWillAppear(_ animated: Bool) {
+        loadAllRolesList()
+        initTableIndex()
+        addHeader()
+        addFooter()
+        self.tableView.reloadData()
         if self.tableViewIndex != nil {
             self.tableViewIndex?.isHidden = false
         }
