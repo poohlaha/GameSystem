@@ -318,6 +318,7 @@
                         <outlet property="roleLevelLabel" destination="FK9-eq-x4a" id="fke-OE-DW7"/>
                         <outlet property="roleNameLabel" destination="j2U-Uy-sUo" id="d8y-xB-K6d"/>
                         <outlet property="shipmentBtn" destination="LDy-aB-ALP" id="6fH-2I-vsT"/>
+                        <segue destination="cHt-ZS-VcN" kind="showDetail" identifier="toEditRolePage" id="gZF-ab-O9K"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="lFb-uu-1gm" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -347,6 +348,13 @@
                                                     <fontDescription key="fontDescription" name="ArialMT" family="Arial" pointSize="16"/>
                                                     <textInputTraits key="textInputTraits"/>
                                                 </textField>
+                                                <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="EY8-ht-Mdc">
+                                                    <frame key="frameInset" minX="166" minY="9.5" width="42" height="21"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
                                             </subviews>
                                             <constraints>
                                                 <constraint firstItem="dm7-Uj-Bdh" firstAttribute="top" secondItem="AL2-9H-ToH" secondAttribute="top" constant="5" id="03n-7k-Tzg"/>
@@ -489,7 +497,11 @@
                     </tableView>
                     <toolbarItems/>
                     <navigationItem key="navigationItem" title="编辑角色" id="UsV-3P-12D">
-                        <barButtonItem key="rightBarButtonItem" title="完成" id="27G-86-HSf"/>
+                        <barButtonItem key="rightBarButtonItem" title="完成" id="27G-86-HSf">
+                            <connections>
+                                <action selector="doneClick:" destination="cHt-ZS-VcN" id="2K9-YN-nS2"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
                     <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
                     <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
@@ -500,13 +512,14 @@
                         <outlet property="gameIdLabel" destination="T4h-RD-kPT" id="xk8-QT-ktB"/>
                         <outlet property="isRoleRechargeBtn" destination="dHU-C6-Gtr" id="1Qj-PU-fLb"/>
                         <outlet property="isRoleRechargeLabel" destination="c0Z-Ed-TKT" id="u97-OK-icr"/>
+                        <outlet property="roleIdLabel" destination="EY8-ht-Mdc" id="jJc-ct-JD2"/>
                         <outlet property="roleLevelTextField" destination="YYz-pc-rNF" id="tod-uD-aRX"/>
                         <outlet property="roleNameTextField" destination="dm7-Uj-Bdh" id="9vT-nX-u6D"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="VMb-gu-pnl" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1989" y="-48"/>
+            <point key="canvasLocation" x="1500" y="-243"/>
         </scene>
     </scenes>
 </document>

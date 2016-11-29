@@ -11,11 +11,7 @@ import Foundation
 class HttpGameClient{
     static let auth = "auth"
     
-    static func request(url:String,params:Dictionary<String,Any>) -> URLRequest{
-        
-        //let str = try! JSONSerialization.data(withJSONObject: params, options: JSONSerialization.WritingOptions.prettyPrinted)
-        //let data = String(data: str, encoding: String.Encoding(rawValue: String.Encoding.utf8.rawValue))
-        
+    static func anaylsParams(url:String,params:Dictionary<String,Any>) -> String {
         let list  = NSMutableArray()
         list.add("auth=\(auth)")//添加认证
         //拆分字典,subDic是其中一项，将key与value变成字符串
@@ -24,8 +20,10 @@ class HttpGameClient{
             list.add(tmpStr)
         }
         //用&拼接变成字符串的字典各项
-        let paramStr = list.componentsJoined(by: "&")
-        
+        return list.componentsJoined(by: "&")
+    }
+    
+    static func request(url:String,param:String) -> URLRequest{
         let httpUrl = URL.init(string: url)
         var request:URLRequest = NSMutableURLRequest.init(url: httpUrl!) as URLRequest
         
@@ -33,8 +31,19 @@ class HttpGameClient{
         request.httpMethod = "POST"
         //request.httpBody = data?.data(using: String.Encoding.utf8)
         //设置请求体
-        request.httpBody = paramStr.data(using: String.Encoding.utf8)//UTF8转码，防止汉字符号引起的非法网址
+        request.httpBody = param.data(using: String.Encoding.utf8)//UTF8转码，防止汉字符号引起的非法网址
         return request
+    }
+    
+    //同步请求
+    static func syncRequest(url:String,param:String,success: @escaping ((_ result: AnyObject) -> ())) -> NSString{
+        if(url.isEmpty){
+            print("url or body is null.")
+            return ""
+        }
+        
+        let request:URLRequest = self.request(url:url,param:param) as URLRequest
+        return sync(request: request, success: success)
     }
     
     //同步请求
@@ -44,8 +53,12 @@ class HttpGameClient{
             return ""
         }
         
-        let request:URLRequest = self.request(url:url,params:params) as URLRequest
-        
+        let paramStr:String = anaylsParams(url: url, params: params)
+        let request:URLRequest = self.request(url:url,param:paramStr) as URLRequest
+         return sync(request: request, success: success)
+    }
+    
+    static func sync(request:URLRequest,success: @escaping ((_ result: AnyObject) -> ())) -> NSString{
         //响应对象
         var response:URLResponse?
         
@@ -56,9 +69,9 @@ class HttpGameClient{
             
             var result:AnyObject? = nil
             if received != nil {
-                 result = try JSONSerialization.jsonObject(with: (received as? Data)!, options: .allowFragments) as AnyObject?
+                result = try JSONSerialization.jsonObject(with: (received as? Data)!, options: .allowFragments) as AnyObject?
             }
-           
+            
             success(result!)
         }catch let error as NSError{
             //打印错误消息
@@ -77,7 +90,9 @@ class HttpGameClient{
             return
         }
         
-        let request:URLRequest = self.request(url:url,params:params) as URLRequest
+        let paramStr:String = anaylsParams(url: url, params: params)
+        let request:URLRequest = self.request(url:url,param:paramStr) as URLRequest
+        
         let session = URLSession.shared
         let dataTask = session.dataTask(with: request) { (data, response, error) in
             if let data = data {

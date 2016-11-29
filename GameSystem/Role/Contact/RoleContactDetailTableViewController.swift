@@ -28,6 +28,10 @@ class RoleContactDetailTableViewController: BaseTableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
         initFrame()
         initData()
     }
@@ -112,6 +116,7 @@ class RoleContactDetailTableViewController: BaseTableViewController {
     //MARKS :跳转到下一个页面传值(手动)
     func prepareDetailForData(destinationController:RoleEditTableViewController,roleId:Int?){
         destinationController.roleId = roleId ?? 0
+        destinationController.roleContactDetailController = self
     }
     
     //发货事件

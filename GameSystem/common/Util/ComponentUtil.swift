@@ -88,4 +88,23 @@ class ComponentUtil: NSObject {
         }
         return photoView
     }
+    
+    //系统弹出框
+    static func alert(title:String?,message:String?,isShowCancel:Bool,cancelCallBack:(),doneCallback:()) -> UIAlertController{
+        let alertController = UIAlertController(title: title ?? "", message: message ?? "", preferredStyle: UIAlertControllerStyle.alert)
+        if isShowCancel {
+            let cancelAction = UIAlertAction(title: "取消", style: UIAlertActionStyle.cancel){ (UIAlertAction) -> Void in
+                cancelCallBack
+            }
+            alertController.addAction(cancelAction)
+        }
+        
+        let okAction = UIAlertAction(title: "确定", style: UIAlertActionStyle.default) { (UIAlertAction) -> Void in
+            doneCallback
+        }
+        
+        alertController.addAction(okAction)
+        
+        return alertController
+    }
 }

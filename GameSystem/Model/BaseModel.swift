@@ -49,10 +49,16 @@ class BaseUtil {
     }
     
     static func load(url:String,params:Dictionary<String,Any>,callback:@escaping (_ arr:NSDictionary)->()){
-        let param:Dictionary<String,Any> = params ?? Dictionary<String,Any>()
+        let param:Dictionary<String,Any> = params 
         HttpGameClient.syncRequest(url: url,params: param, success: { (result:AnyObject) in
             let json = result as! NSDictionary
             callback(json)
+        })
+    }
+    
+    static func load(url:String,param:String,callback:@escaping (_ arr:NSDictionary)->()){
+        HttpGameClient.syncRequest(url: url,param: param, success: { (result:AnyObject) in
+             callback(result as! NSDictionary)
         })
     }
 }

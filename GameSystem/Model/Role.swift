@@ -133,4 +133,36 @@ class RoleUtil {
         return role
     }
     
+    static func saveRole(role:Role,callback:@escaping (_ result:String)->()) {
+        //let jsonData = try! JSONSerialization.data(withJSONObject: convertToStr(role: role), options: JSONSerialization.WritingOptions.prettyPrinted)
+       // let param = NSString(data: jsonData, encoding: String.Encoding.utf8.rawValue)
+        BaseUtil.load(url: DBConstantUtil.saveRole,params: convertToStr(role: role)) { (result:NSDictionary) in
+            let json = result as! Dictionary<String,Any>
+            let msg = json["msg"] as? String
+            callback(msg!)
+        }
+    }
+    
+    //转换成字典
+    static func convertToStr(role:Role) -> Dictionary<String,Any> {
+        var str:Dictionary<String,Any> = [:]
+        str["id"] = role.id
+        str["currency"] = role.currency
+        str["isRoleRecharge"] = role.isRoleRecharge
+        str["isRoleShip"] = role.isRoleShip
+        str["roleLevel"] = role.roleLevel
+        str["roleName"] = role.roleName ?? ""
+        
+        if role.gameAccount != nil {
+            str["gameAccount.id"] = role.gameAccount?.id
+            
+            if role.gameAccount?.game != nil {
+                str["gameAccount.game.id"] = role.gameAccount?.game?.id
+            }
+        }
+        
+        return str
+    }
+    
+    
 }

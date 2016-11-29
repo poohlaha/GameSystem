@@ -19,6 +19,7 @@ class RoleEditTableViewController: BaseTableViewController,RolePickerViewDelegat
     @IBOutlet weak var gameIdLabel: UILabel!
     @IBOutlet weak var gameAccountIdLabel: UILabel!
     @IBOutlet weak var isRoleRechargeLabel: UILabel!
+    @IBOutlet weak var roleIdLabel: UILabel!
     
     private var gameList:[Game] = []
     private var gameAccountList:[GameAccount] = []
@@ -26,7 +27,8 @@ class RoleEditTableViewController: BaseTableViewController,RolePickerViewDelegat
     
     var roleId:Int?
     var role:Role = Role()
-    //var isRoleRechargeLabel:UILabel?
+    
+    var roleContactDetailController:RoleContactDetailTableViewController?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -102,6 +104,8 @@ class RoleEditTableViewController: BaseTableViewController,RolePickerViewDelegat
     func initData(){
         if roleId == nil { return }
         
+        roleIdLabel.text = "\(roleId!)"
+        
         let params:Dictionary<String,Any> = ["id": roleId!]
         self.role = RoleUtil.queryRoleById(params: params)
         if role.isEqual(nil){ return }
@@ -155,9 +159,92 @@ class RoleEditTableViewController: BaseTableViewController,RolePickerViewDelegat
          let value = ConstantUtil.isRoleRechargeData[row]
          isRoleRechargeBtn.setTitle(value, for: .normal)
          isRoleRechargeLabel.text = "\(ConstantUtil.isRoleRechargeDataValue[row])"
-         print(value)
     }
     
+    //完成事件
+    @IBAction func doneClick(_ sender: AnyObject) {
+        let role = Role()
+        role.id = Int(roleIdLabel.text!)
+        
+        let roleName:String = roleNameTextField.text ?? ""
+        if roleName.isEmpty {
+            alert(title: "角色名称不能为空!")
+            return
+        }
+        
+        role.roleName = roleName
+        
+        let roleLevel:String? = roleLevelTextField.text ?? ""
+        if (roleLevel?.isEmpty)! {
+            alert(title: "角色等级不能为空!")
+            return
+        }
+        
+        role.roleLevel = Int(roleLevel!)
+        
+        let currency:String? = currencyTextField.text ?? ""
+        if (currency?.isEmpty)! {
+            alert(title: "游戏币不能为空!")
+            return
+        }
+        
+        role.currency = Int(currency!)
+        
+        let gameId:String? = gameIdLabel.text ?? ""
+        let gameAccountId:String? = gameAccountIdLabel.text ?? ""
+        
+        if (gameId?.isEmpty)! || (gameAccountId?.isEmpty)!{
+            alert(title: "请选择游戏账号!")
+            return
+        }
+        
+        let isRoleRecharge:String = isRoleRechargeLabel.text ?? ""
+        if isRoleRecharge.isEmpty {
+            alert(title: "请选择是否可充!")
+            return
+        }
+        
+        let account = GameAccount()
+        account.id = Int(gameAccountId!)
+        role.gameAccount = account
+        
+        let game = Game()
+        game.id = Int(gameId!)
+        role.gameAccount?.game = game
+        role.isRoleRecharge = Int(isRoleRecharge)
+        
+        RoleUtil.saveRole(role: role){ (result:String) in
+            if result != "true" {
+                self.alert(title: "保存失败!")
+                return
+            }
+            let alertController = UIAlertController(title: "保存成功!", message: "", preferredStyle: UIAlertControllerStyle.alert)
+            let okAction = UIAlertAction(title: "确定", style: UIAlertActionStyle.default, handler: { (UIAlertAction) in
+                self.roleContactDetailController?.roleId = self.roleId
+                self.navigationController?.popViewController(animated: true)
+                //self.performSegue(withIdentifier: "toEditRolePage", sender: nil)
+                /*self.dismiss(animated: true, completion: {
+                    self.roleContactDetailController?.roleId = self.roleId
+                })*/
+            })
+            
+            alertController.addAction(okAction)
+            self.present(alertController, animated: true, completion: nil)
+        }
+    }
     
-
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if(segue.identifier == "toEditRolePage"){
+            let roleEditTableViewController:RoleEditTableViewController = segue.destination as! RoleEditTableViewController
+            roleEditTableViewController.roleId = self.roleId
+        }
+    }
+    
+    func alert(title:String){
+        let alertController = UIAlertController(title: title, message: "", preferredStyle: UIAlertControllerStyle.alert)
+        let okAction = UIAlertAction(title: "确定", style: UIAlertActionStyle.default)
+        
+        alertController.addAction(okAction)
+        self.present(alertController, animated: true, completion: nil)
+    }
 }
