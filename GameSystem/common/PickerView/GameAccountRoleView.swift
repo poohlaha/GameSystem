@@ -125,6 +125,33 @@ class GameAccountRoleView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
+    override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
+        let location:CGPoint = (touches.first?.location(in: self))!
+        if isInView(location: location){ return }
+        
+        super.touchesEnded(touches, with: event)
+        super.removeFromSuperview()
+    }
+    
+    //获取左上和右下坐标,判断坐标点是否在矩形内
+    func isInView(location:CGPoint) -> Bool{
+        let beginTopLeftX:CGFloat = (self.mainView?.frame.origin.x)!
+        let beginTopLeftY:CGFloat = (self.mainView?.frame.origin.y)!
+        
+        let endBottomRightX:CGFloat = (self.mainView?.frame.origin.x)! + (self.mainView?.frame.width)!
+        let endBottomRightY:CGFloat = (self.mainView?.frame.origin.y)! + (self.mainView?.frame.height)!
+        
+        let currentX:CGFloat = location.x
+        let currentY:CGFloat = location.y
+        
+        if currentX < beginTopLeftX || currentX > endBottomRightX || currentY < beginTopLeftY || currentY > endBottomRightY {
+            return false
+        }
+        
+        return true
+        
+    }
+    
 }
 
 class LeftTableView:GameAccountRoleBaseView {
@@ -206,16 +233,17 @@ class MiddleTableView:GameAccountRoleBaseView {
         gameAccount.id = gameAccountId
         gameAccount.nickName = gameAccountText
         
+        self.selectedData = Int(cell.hiddenLabel!.text!)!
+        disableAllCellMark()
+        cell.accessoryType = .checkmark
+        
         if self.rightTableView != nil {
             
         }else{
             let data:NSDictionary = ["game":self.game,"gameAccount":gameAccount]
             self.parentView?.viewDelegate?.gameAccountRoleBaseViewCallback!(data:data,view:self.parentView)
         }
-        
-        self.selectedData = Int(cell.hiddenLabel!.text!)!
-        disableAllCellMark()
-        cell.accessoryType = .checkmark
+    
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {

@@ -496,7 +496,7 @@
                     <connections>
                         <outlet property="currencyTextField" destination="wf1-Nc-q3r" id="9uU-BQ-1OS"/>
                         <outlet property="gameAccountBtn" destination="YsS-zp-Sr4" id="Zuu-dW-bPM"/>
-                        <outlet property="gameAccountId" destination="rm4-Cm-k1Q" id="3uE-pk-4cH"/>
+                        <outlet property="gameAccountIdLabel" destination="rm4-Cm-k1Q" id="leZ-F7-YIZ"/>
                         <outlet property="gameIdLabel" destination="T4h-RD-kPT" id="xk8-QT-ktB"/>
                         <outlet property="isRoleRechargeBtn" destination="dHU-C6-Gtr" id="1Qj-PU-fLb"/>
                         <outlet property="isRoleRechargeLabel" destination="c0Z-Ed-TKT" id="u97-OK-icr"/>

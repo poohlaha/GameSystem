@@ -17,7 +17,7 @@ class RoleEditTableViewController: BaseTableViewController,RolePickerViewDelegat
     @IBOutlet weak var gameAccountBtn: UIButton!
     @IBOutlet weak var isRoleRechargeBtn: UIButton!
     @IBOutlet weak var gameIdLabel: UILabel!
-    @IBOutlet weak var gameAccountId: UILabel!
+    @IBOutlet weak var gameAccountIdLabel: UILabel!
     @IBOutlet weak var isRoleRechargeLabel: UILabel!
     
     private var gameList:[Game] = []
@@ -56,8 +56,8 @@ class RoleEditTableViewController: BaseTableViewController,RolePickerViewDelegat
     }
     
     let gameAccountRolePickerViewHeight:CGFloat = 200
-    func createGameAccountRoleView() -> GameAccountRoleView {
-        return GameAccountRoleView(frame: CGRect(x: 0, y: UIScreen.main.bounds.height - gameAccountRolePickerViewHeight, width: UIScreen.main.bounds.width, height: gameAccountRolePickerViewHeight), gameData:self.gameList,gameAccountData:self.gameAccountList,roleData:[],gameSelectedData: self.role.gameAccount?.game?.id,gameAccountSelectedData:self.role.gameAccount?.id,roleSelectedData:nil)
+    func createGameAccountRoleView(gameSelectedData: Int?,gameAccountSelectedData:Int?,roleSelectedData:Int?) -> GameAccountRoleView {
+        return GameAccountRoleView(frame: CGRect(x: 0, y: UIScreen.main.bounds.height - gameAccountRolePickerViewHeight, width: UIScreen.main.bounds.width, height: gameAccountRolePickerViewHeight), gameData:self.gameList,gameAccountData:self.gameAccountList,roleData:[],gameSelectedData: gameSelectedData,gameAccountSelectedData:gameAccountSelectedData,roleSelectedData:roleSelectedData)
     }
     
     func createRolePickerView() -> RolePickerView{
@@ -82,14 +82,17 @@ class RoleEditTableViewController: BaseTableViewController,RolePickerViewDelegat
         let gameAccount = data["gameAccount"] as? GameAccount ?? GameAccount()
         let value = game.gameName! + " " + gameAccount.nickName!
         gameAccountBtn.setTitle(value, for: .normal)
-        gameIdLabel.text = "\(game.id)"
-        gameAccountId.text = "\(gameAccount.id)"
+        gameIdLabel.text = "\(game.id!)"
+        gameAccountIdLabel.text = "\(gameAccount.id!)"
         view?.removeFromSuperview()
     }
 
     //游戏账号点击事件
     func gameAccountBtnClick(){
-        let gameAccountRoleView = createGameAccountRoleView()
+        let gameId = Int(gameIdLabel.text!)
+        let gameAccountId = Int(gameAccountIdLabel.text!)
+        let gameAccountRoleView = createGameAccountRoleView(gameSelectedData: gameId,gameAccountSelectedData:gameAccountId,roleSelectedData:nil)
+        
         gameAccountRoleView.viewDelegate = self
         let controller = self.parent
         controller?.view.addSubview(gameAccountRoleView)
@@ -111,6 +114,13 @@ class RoleEditTableViewController: BaseTableViewController,RolePickerViewDelegat
         let roleRechargeText:String = (role.isRoleRecharge == 0) ? ConstantUtil.isRoleRechargeData[0] : ConstantUtil.isRoleRechargeData[1]
         //设置isRoleRecharge选中
         isRoleRechargeBtn.setTitle(roleRechargeText, for: .normal)
+        isRoleRechargeLabel.text = "\(ConstantUtil.isRoleRechargeDataValue[role.isRoleRecharge!])"
+        
+        //设置游戏账号
+        gameAccountBtn.setTitle((role.gameAccount?.game?.gameName)! + " " + (role.gameAccount?.nickName!)!, for: .normal)
+        gameIdLabel.text = "\(role.gameAccount!.game!.id!)"
+        gameAccountIdLabel.text = "\(role.gameAccount!.id!)"
+        
         
         //获取gamelist,gameaccountlist,rolelist
         let list:Dictionary<String,Array<AnyObject>> = GameUtil.loadAllList()
@@ -147,5 +157,7 @@ class RoleEditTableViewController: BaseTableViewController,RolePickerViewDelegat
          isRoleRechargeLabel.text = "\(ConstantUtil.isRoleRechargeDataValue[row])"
          print(value)
     }
+    
+    
 
 }
