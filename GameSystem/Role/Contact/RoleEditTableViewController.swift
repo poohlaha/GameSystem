@@ -9,15 +9,21 @@
 import UIKit
 
 //编辑角色
-class RoleEditTableViewController: BaseTableViewController,RolePickerViewDelegate {
+class RoleEditTableViewController: BaseTableViewController,RolePickerViewDelegate,GameAccountRoleBaseViewDelegate {
 
     @IBOutlet weak var roleNameTextField: UITextField!
-    @IBOutlet weak var gameAccountPickerView: UIPickerView!
     @IBOutlet weak var roleLevelTextField: UITextField!
     @IBOutlet weak var currencyTextField: UITextField!
-    //@IBOutlet weak var isRoleRechargeView: UIView!
-    
+    @IBOutlet weak var gameAccountBtn: UIButton!
     @IBOutlet weak var isRoleRechargeBtn: UIButton!
+    @IBOutlet weak var gameIdLabel: UILabel!
+    @IBOutlet weak var gameAccountId: UILabel!
+    @IBOutlet weak var isRoleRechargeLabel: UILabel!
+    
+    private var gameList:[Game] = []
+    private var gameAccountList:[GameAccount] = []
+    private var roleList:[Role] = []
+    
     var roleId:Int?
     var role:Role = Role()
     //var isRoleRechargeLabel:UILabel?
@@ -29,11 +35,12 @@ class RoleEditTableViewController: BaseTableViewController,RolePickerViewDelegat
     }
     
     func initFrame(){
-        isRoleRechargeBtn.addTarget(self, action: #selector(RoleEditTableViewController.isRoleRechargeView), for: .touchUpInside)
+        isRoleRechargeBtn.addTarget(self, action: #selector(RoleEditTableViewController.isRoleRechargeBtnClick), for: .touchUpInside)
         setCellStyleNone()
         //居左显示
         isRoleRechargeBtn.contentHorizontalAlignment = .left
-        
+        gameAccountBtn.addTarget(self, action: #selector(RoleEditTableViewController.gameAccountBtnClick), for: .touchUpInside)
+        gameAccountBtn.contentHorizontalAlignment = .left
     }
     
     //取消点击事件
@@ -48,12 +55,18 @@ class RoleEditTableViewController: BaseTableViewController,RolePickerViewDelegat
         
     }
     
+    let gameAccountRolePickerViewHeight:CGFloat = 200
+    func createGameAccountRoleView() -> GameAccountRoleView {
+        return GameAccountRoleView(frame: CGRect(x: 0, y: UIScreen.main.bounds.height - gameAccountRolePickerViewHeight, width: UIScreen.main.bounds.width, height: gameAccountRolePickerViewHeight), gameData:self.gameList,gameAccountData:self.gameAccountList,roleData:[],gameSelectedData: self.role.gameAccount?.game?.id,gameAccountSelectedData:self.role.gameAccount?.id,roleSelectedData:nil)
+    }
+    
     func createRolePickerView() -> RolePickerView{
         let navigationHeight:CGFloat = (self.navigationController?.navigationBar.frame.height)! + ComponentUtil.statusBarFrame.height
         return RolePickerView(beginHeight:navigationHeight,pickerData: ConstantUtil.isRoleRechargeData)
     }
     
-    func isRoleRechargeView() {
+    //是否可首充点击事件
+    func isRoleRechargeBtnClick() {
         let rolePickerView = createRolePickerView()
         rolePickerView.rolePickerViewDelegate = self
         
@@ -62,7 +75,25 @@ class RoleEditTableViewController: BaseTableViewController,RolePickerViewDelegat
         let controller = self.parent
         controller?.view.addSubview(rolePickerView)
     }
+    
+    //游戏联动返回函数
+    func gameAccountRoleBaseViewCallback(data:NSDictionary,view:GameAccountRoleView?) {
+        let game = data["game"] as? Game ?? Game()
+        let gameAccount = data["gameAccount"] as? GameAccount ?? GameAccount()
+        let value = game.gameName! + " " + gameAccount.nickName!
+        gameAccountBtn.setTitle(value, for: .normal)
+        gameIdLabel.text = "\(game.id)"
+        gameAccountId.text = "\(gameAccount.id)"
+        view?.removeFromSuperview()
+    }
 
+    //游戏账号点击事件
+    func gameAccountBtnClick(){
+        let gameAccountRoleView = createGameAccountRoleView()
+        gameAccountRoleView.viewDelegate = self
+        let controller = self.parent
+        controller?.view.addSubview(gameAccountRoleView)
+    }
     
     //通过RoleId查找角色,显示在详情页面上
     func initData(){
@@ -80,6 +111,14 @@ class RoleEditTableViewController: BaseTableViewController,RolePickerViewDelegat
         let roleRechargeText:String = (role.isRoleRecharge == 0) ? ConstantUtil.isRoleRechargeData[0] : ConstantUtil.isRoleRechargeData[1]
         //设置isRoleRecharge选中
         isRoleRechargeBtn.setTitle(roleRechargeText, for: .normal)
+        
+        //获取gamelist,gameaccountlist,rolelist
+        let list:Dictionary<String,Array<AnyObject>> = GameUtil.loadAllList()
+        if list.isEmpty || list.count == 0 { return }
+        
+        self.gameList = list["game"] as? [Game] ?? []
+        self.gameAccountList = list["gameAccount"] as? [GameAccount] ?? []
+        self.roleList = list["role"] as? [Role] ?? []
     }
     
     override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
@@ -105,6 +144,7 @@ class RoleEditTableViewController: BaseTableViewController,RolePickerViewDelegat
     func rolePickerViewDidSelectRow(row:Int) {
          let value = ConstantUtil.isRoleRechargeData[row]
          isRoleRechargeBtn.setTitle(value, for: .normal)
+         isRoleRechargeLabel.text = "\(ConstantUtil.isRoleRechargeDataValue[row])"
          print(value)
     }
 

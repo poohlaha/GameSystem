@@ -17,6 +17,7 @@ class ComponentUtil: NSObject {
     static let backgroundColor:UIColor = UIColor(red: 238/255, green: 238/255, blue: 238/255, alpha: 1)
     static let backgroundBg = UIColor(patternImage: UIImage(named: "bg")!)
     static let fontColorGold = UIColor(red: 253/255, green: 191/255, blue: 44/255, alpha: 0.8)
+    static let sepatatorColor: UIColor = UIColor(red: 219/255.0, green: 219/255.0, blue: 219/255.0, alpha: 1)//分割线
     static let navigationColor = ConstantUtil.mainBgColors[0]
     
     static let statusBarFrame = UIApplication.shared.statusBarFrame//status bar

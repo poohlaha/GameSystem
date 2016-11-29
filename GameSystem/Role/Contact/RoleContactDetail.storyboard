@@ -367,13 +367,32 @@
                                             <frame key="frameInset" width="375" height="40"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <pickerView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="K8x-sT-h5B"/>
+                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="YsS-zp-Sr4">
+                                                    <fontDescription key="fontDescription" name="ArialMT" family="Arial" pointSize="16"/>
+                                                    <state key="normal">
+                                                        <color key="titleColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                                    </state>
+                                                </button>
+                                                <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="T4h-RD-kPT">
+                                                    <frame key="frameInset" minX="166" minY="9.5" width="42" height="21"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rm4-Cm-k1Q">
+                                                    <frame key="frameInset" minX="166" minY="9.5" width="42" height="21"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
                                             </subviews>
                                             <constraints>
-                                                <constraint firstItem="K8x-sT-h5B" firstAttribute="top" secondItem="jXe-TP-sre" secondAttribute="top" constant="5" id="3On-Lg-xbH"/>
-                                                <constraint firstAttribute="trailing" secondItem="K8x-sT-h5B" secondAttribute="trailing" constant="15" id="6SN-aY-IXe"/>
-                                                <constraint firstItem="K8x-sT-h5B" firstAttribute="leading" secondItem="jXe-TP-sre" secondAttribute="leading" constant="15" id="C1p-q9-Drb"/>
-                                                <constraint firstAttribute="bottom" secondItem="K8x-sT-h5B" secondAttribute="bottom" constant="5" id="HNX-Yz-yJa"/>
+                                                <constraint firstItem="YsS-zp-Sr4" firstAttribute="leading" secondItem="jXe-TP-sre" secondAttribute="leading" constant="15" id="109-T3-5ke"/>
+                                                <constraint firstAttribute="trailing" secondItem="YsS-zp-Sr4" secondAttribute="trailing" constant="15" id="F7i-La-mJC"/>
+                                                <constraint firstAttribute="bottom" secondItem="YsS-zp-Sr4" secondAttribute="bottom" constant="5" id="SBE-dD-AlO"/>
+                                                <constraint firstItem="YsS-zp-Sr4" firstAttribute="top" secondItem="jXe-TP-sre" secondAttribute="top" constant="5" id="Vaj-eD-QMP"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                     </tableViewCell>
@@ -444,6 +463,13 @@
                                                         <color key="titleColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                     </state>
                                                 </button>
+                                                <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="c0Z-Ed-TKT">
+                                                    <frame key="frameInset" minX="166" minY="9.5" width="42" height="21"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
                                             </subviews>
                                             <constraints>
                                                 <constraint firstItem="dHU-C6-Gtr" firstAttribute="leading" secondItem="h3Y-5I-146" secondAttribute="leading" constant="15" id="Bbr-4z-TkT"/>
@@ -469,8 +495,11 @@
                     <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
                         <outlet property="currencyTextField" destination="wf1-Nc-q3r" id="9uU-BQ-1OS"/>
-                        <outlet property="gameAccountPickerView" destination="K8x-sT-h5B" id="k4R-4w-8ZF"/>
+                        <outlet property="gameAccountBtn" destination="YsS-zp-Sr4" id="Zuu-dW-bPM"/>
+                        <outlet property="gameAccountId" destination="rm4-Cm-k1Q" id="3uE-pk-4cH"/>
+                        <outlet property="gameIdLabel" destination="T4h-RD-kPT" id="xk8-QT-ktB"/>
                         <outlet property="isRoleRechargeBtn" destination="dHU-C6-Gtr" id="1Qj-PU-fLb"/>
+                        <outlet property="isRoleRechargeLabel" destination="c0Z-Ed-TKT" id="u97-OK-icr"/>
                         <outlet property="roleLevelTextField" destination="YYz-pc-rNF" id="tod-uD-aRX"/>
                         <outlet property="roleNameTextField" destination="dm7-Uj-Bdh" id="9vT-nX-u6D"/>
                     </connections>

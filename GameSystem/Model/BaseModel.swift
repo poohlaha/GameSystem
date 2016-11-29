@@ -27,9 +27,32 @@ class BaseUtil {
         
         HttpGameClient.syncRequest(url: url,params: param, success: { (result:AnyObject) in
             let json = result as! Dictionary<String,Any>
-            let dataList = json["list"] as! NSArray
+            let dataList = json["list"] as? NSArray ?? NSArray()
             if dataList.isEqual(nil) || dataList.count == 0 {return}
             callback(dataList)
+        })
+    }
+    
+    
+    static func loadAllList(url:String,callback:@escaping (_ gameArr:NSArray,_ gameAccountArr:NSArray,_ roleArr:NSArray)->()){
+        let param:Dictionary<String,Any> = Dictionary<String,Any>()
+        
+        HttpGameClient.syncRequest(url: url,params: param, success: { (result:AnyObject) in
+            let json = result as! Dictionary<String,Any>
+            let gameArr = json["game"] as? NSArray ?? NSArray()
+            let gameAccountArr = json["gameAccount"] as? NSArray ?? NSArray()
+            let roleArr = json["role"] as? NSArray ?? NSArray()
+            
+            callback(gameArr,gameAccountArr,roleArr)
+        })
+
+    }
+    
+    static func load(url:String,params:Dictionary<String,Any>,callback:@escaping (_ arr:NSDictionary)->()){
+        let param:Dictionary<String,Any> = params ?? Dictionary<String,Any>()
+        HttpGameClient.syncRequest(url: url,params: param, success: { (result:AnyObject) in
+            let json = result as! NSDictionary
+            callback(json)
         })
     }
 }

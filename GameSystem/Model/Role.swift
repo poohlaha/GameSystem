@@ -116,15 +116,19 @@ class RoleUtil {
         return ContactModel().convert(contacts: roles, fieldName: "roleName", isNeedPhoto: true)
     }
     
-    static func queryRoleById(params:Dictionary<String,Any>?) -> Role{
-        let param:Dictionary<String,Any> = params ?? Dictionary<String,Any>()
+    static func queryRoleById(params:Dictionary<String,Any>) -> Role{
         var role:Role = Role()
         
+        /*
         HttpGameClient.syncRequest(url: DBConstantUtil.queryRoleById,params: param, success: { (result:AnyObject) in
             let json = result as! NSDictionary
             role = anaylsRole(data: json)
             
-        })
+        })*/
+        
+        BaseUtil.load(url: DBConstantUtil.queryRoleById,params: params) { (result:NSDictionary) in
+            role = anaylsRole(data: result)
+        }
         
         return role
     }

@@ -9,8 +9,11 @@
 /* Begin PBXBuildFile section */
 		7600BDD81DE5E7C9000F7985 /* NavigationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7600BDD71DE5E7C9000F7985 /* NavigationView.swift */; };
 		7600BDDD1DE5EE73000F7985 /* BaseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7600BDDC1DE5EE73000F7985 /* BaseView.swift */; };
+		7618524F1DEC5FA500C0CC94 /* GameAccountRoleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7618524E1DEC5FA500C0CC94 /* GameAccountRoleView.swift */; };
 		7654B49E1DEBC6DA00527B79 /* Game.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7654B49D1DEBC6DA00527B79 /* Game.swift */; };
 		7654B4A01DEBCEC000527B79 /* GameAccount.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7654B49F1DEBCEC000527B79 /* GameAccount.swift */; };
+		7654B4A31DEBD56800527B79 /* GameAccountRolePickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7654B4A21DEBD56800527B79 /* GameAccountRolePickerView.swift */; };
+		7654B4A51DEC051100527B79 /* GameAccountRoleViewCellCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7654B4A41DEC051100527B79 /* GameAccountRoleViewCellCollectionViewCell.swift */; };
 		7659384D1DD3376E000740D5 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7659384C1DD3376E000740D5 /* AppDelegate.swift */; };
 		7659384F1DD3376E000740D5 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7659384E1DD3376E000740D5 /* ViewController.swift */; };
 		765938521DD3376E000740D5 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 765938501DD3376E000740D5 /* Main.storyboard */; };
@@ -76,8 +79,11 @@
 /* Begin PBXFileReference section */
 		7600BDD71DE5E7C9000F7985 /* NavigationView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NavigationView.swift; sourceTree = "<group>"; };
 		7600BDDC1DE5EE73000F7985 /* BaseView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseView.swift; sourceTree = "<group>"; };
+		7618524E1DEC5FA500C0CC94 /* GameAccountRoleView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameAccountRoleView.swift; sourceTree = "<group>"; };
 		7654B49D1DEBC6DA00527B79 /* Game.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Game.swift; sourceTree = "<group>"; };
 		7654B49F1DEBCEC000527B79 /* GameAccount.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameAccount.swift; sourceTree = "<group>"; };
+		7654B4A21DEBD56800527B79 /* GameAccountRolePickerView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameAccountRolePickerView.swift; sourceTree = "<group>"; };
+		7654B4A41DEC051100527B79 /* GameAccountRoleViewCellCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameAccountRoleViewCellCollectionViewCell.swift; sourceTree = "<group>"; };
 		765938491DD3376E000740D5 /* GameSystem.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GameSystem.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		7659384C1DD3376E000740D5 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		7659384E1DD3376E000740D5 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -174,6 +180,17 @@
 			);
 			path = Base;
 			sourceTree = "<group>";
+		};
+		7654B4A11DEBD52700527B79 /* PickerView */ = {
+			isa = PBXGroup;
+			children = (
+				7654B4A21DEBD56800527B79 /* GameAccountRolePickerView.swift */,
+				7654B4A41DEC051100527B79 /* GameAccountRoleViewCellCollectionViewCell.swift */,
+				7618524E1DEC5FA500C0CC94 /* GameAccountRoleView.swift */,
+			);
+			name = PickerView;
+			path = GameSystem/Common/PickerView;
+			sourceTree = SOURCE_ROOT;
 		};
 		765938401DD3376D000740D5 = {
 			isa = PBXGroup;
@@ -404,6 +421,7 @@
 			children = (
 				7699D3981DE6C91200E0F6B2 /* Plugins */,
 				7600BDDB1DE5EE73000F7985 /* Base */,
+				7654B4A11DEBD52700527B79 /* PickerView */,
 				7600BDD61DE5E7C9000F7985 /* Navigation */,
 				76DB90541DE49AA5001FA5FD /* Http */,
 				76DB90511DE49362001FA5FD /* DB */,
@@ -572,15 +590,18 @@
 				76ACF6F01DE8042300A6CA86 /* RoleQueryTableViewCell.swift in Sources */,
 				7600BDD81DE5E7C9000F7985 /* NavigationView.swift in Sources */,
 				7699D3A41DE6D4E400E0F6B2 /* BaseTableViewCell.swift in Sources */,
+				7654B4A31DEBD56800527B79 /* GameAccountRolePickerView.swift in Sources */,
 				767CD4BC1DE580810084B302 /* Role.swift in Sources */,
 				7699D3951DE6AF9B00E0F6B2 /* ErrorUtil.swift in Sources */,
 				76DB90561DE49B07001FA5FD /* HttpGameClient.swift in Sources */,
 				7699D3A01DE6C91200E0F6B2 /* LoadingView.swift in Sources */,
 				765E74371DE14EED005A9B63 /* ShipmentTableViewController.swift in Sources */,
 				7682A22A1DE48B35001CDA47 /* MainBgView.swift in Sources */,
+				7618524F1DEC5FA500C0CC94 /* GameAccountRoleView.swift in Sources */,
 				765938551DD3376E000740D5 /* GameSystem.xcdatamodeld in Sources */,
 				7682A2271DE48AEC001CDA47 /* ConstantUtil.swift in Sources */,
 				7654B49E1DEBC6DA00527B79 /* Game.swift in Sources */,
+				7654B4A51DEC051100527B79 /* GameAccountRoleViewCellCollectionViewCell.swift in Sources */,
 				7659384D1DD3376E000740D5 /* AppDelegate.swift in Sources */,
 				76ACF6E41DE7E80600A6CA86 /* BaseModel.swift in Sources */,
 				76ACF6EF1DE8042300A6CA86 /* RoleContactTableViewController.swift in Sources */,

@@ -68,7 +68,7 @@ class RoleQueryTableViewController: BaseTableViewController {
         cell.currencyView?.addSubview(currencyLabel)
         
         //是否可发货
-        let shipLabelText:String = (role.isRoleShip == 0) ? "可发货":"不可发货"
+        let shipLabelText:String = (role.isRoleShip == 0) ? ConstantUtil.isRoleShipData[0] : ConstantUtil.isRoleShipData[1]
         var shipLabel:UILabel?
         var shipColor:UIColor?
         var shipFont:UIFont?
@@ -85,7 +85,7 @@ class RoleQueryTableViewController: BaseTableViewController {
         cell.shipView?.addSubview(shipLabel!)
         
         //是否可首充
-        let chargeLabelText:String = role.isRoleRecharge == 0 ? "可首充" : "不可首充"
+        let chargeLabelText:String = role.isRoleRecharge == 0 ? ConstantUtil.isRoleRechargeData[0] : ConstantUtil.isRoleRechargeData[1]
         var chargeLabel:UILabel?
         var chargeColor:UIColor?
         var chargeFont:UIFont?

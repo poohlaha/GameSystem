@@ -48,4 +48,6 @@ class ConstantUtil: NSObject {
     
     static let isRoleShipData:[String] = ["可发货","不可发货"]
     static let isRoleShipDataValue:[Int] = [0,1]
+    
+    static let names:[String] = ["game","gameAccount","role"]
 }
