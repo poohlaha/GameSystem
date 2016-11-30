@@ -50,6 +50,8 @@ class RoleUtil {
         let lastUpdateDate = role.lastUpdateDateString ?? ""
         if !lastUpdateDate.isEmpty {
             role.lastUpdateDateString = BaseUtil.formatDate(date: lastUpdateDate)
+        } else {
+             role.lastUpdateDateString = role.createDateString ?? ""
         }
         
         

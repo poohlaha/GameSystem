@@ -237,12 +237,45 @@
                                             </constraints>
                                         </tableViewCellContentView>
                                     </tableViewCell>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="50" id="ryp-vp-8AT">
+                                        <rect key="frame" x="0.0" y="465" width="375" height="50"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="ryp-vp-8AT" id="epg-n7-qCx">
+                                            <frame key="frameInset" width="375" height="49.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <stackView opaque="NO" contentMode="scaleToFill" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="WD5-tb-Y4a">
+                                                    <subviews>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="最后修改时间" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Qcv-bg-Ik0">
+                                                            <constraints>
+                                                                <constraint firstAttribute="width" constant="100" id="3mM-e1-ZVI"/>
+                                                            </constraints>
+                                                            <fontDescription key="fontDescription" name="ArialMT" family="Arial" pointSize="16"/>
+                                                            <nil key="textColor"/>
+                                                            <nil key="highlightedColor"/>
+                                                        </label>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vGl-ss-MqR">
+                                                            <fontDescription key="fontDescription" name="ArialMT" family="Arial" pointSize="16"/>
+                                                            <nil key="textColor"/>
+                                                            <nil key="highlightedColor"/>
+                                                        </label>
+                                                    </subviews>
+                                                </stackView>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="WD5-tb-Y4a" firstAttribute="leading" secondItem="epg-n7-qCx" secondAttribute="leading" constant="15" id="7jb-Rh-zs5"/>
+                                                <constraint firstItem="WD5-tb-Y4a" firstAttribute="top" secondItem="epg-n7-qCx" secondAttribute="top" constant="10" id="Hdl-Vv-30M"/>
+                                                <constraint firstAttribute="bottom" secondItem="WD5-tb-Y4a" secondAttribute="bottom" constant="10" id="UR2-30-ow0"/>
+                                                <constraint firstAttribute="trailing" secondItem="WD5-tb-Y4a" secondAttribute="trailing" constant="15" id="zkG-uE-8Sx"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
                                 </cells>
                             </tableViewSection>
                             <tableViewSection id="m3Q-d8-Wcx">
                                 <cells>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" rowHeight="120" id="67A-8h-0Ds">
-                                        <rect key="frame" x="0.0" y="501" width="375" height="120"/>
+                                        <rect key="frame" x="0.0" y="551" width="375" height="120"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="67A-8h-0Ds" id="LCl-AV-gYK">
                                             <frame key="frameInset" width="375" height="119.5"/>
@@ -315,6 +348,7 @@
                         <outlet property="headerImageView" destination="Vk9-Aq-Tf6" id="AB0-RG-pH2"/>
                         <outlet property="isRoleRechargeLabel" destination="5Hh-3k-ot3" id="IGr-oT-Fit"/>
                         <outlet property="isRoleShipLabel" destination="lZ3-1j-pix" id="HGH-60-nZk"/>
+                        <outlet property="lastupdateDateLabel" destination="vGl-ss-MqR" id="Dd8-Cj-eO9"/>
                         <outlet property="roleLevelLabel" destination="FK9-eq-x4a" id="fke-OE-DW7"/>
                         <outlet property="roleNameLabel" destination="j2U-Uy-sUo" id="d8y-xB-K6d"/>
                         <outlet property="shipmentBtn" destination="LDy-aB-ALP" id="6fH-2I-vsT"/>

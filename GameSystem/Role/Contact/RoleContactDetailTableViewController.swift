@@ -23,6 +23,8 @@ class RoleContactDetailTableViewController: BaseTableViewController {
     @IBOutlet weak var editRoleBtn: UIButton!
     var parentController: RoleContactTableViewController?
     
+    @IBOutlet weak var lastupdateDateLabel: UILabel!
+    
     
     var photoImage:UIImage?
     var roleId:Int?
@@ -72,6 +74,7 @@ class RoleContactDetailTableViewController: BaseTableViewController {
             isRoleRechargeLabel.text = ConstantUtil.isRoleRechargeData[1]
         }
         
+        lastupdateDateLabel.text = role?.lastUpdateDateString
         //设置游戏
         gameLabel.text = role?.gameAccount?.game?.gameName ?? ""
         gameAccountLabel.text = role?.gameAccount?.nickName ?? ""
