@@ -55,6 +55,7 @@
 		76E7D9091DEAC5370090B6A8 /* RoleEditTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76E7D9081DEAC5370090B6A8 /* RoleEditTableViewController.swift */; };
 		76E7D90B1DEAD49F0090B6A8 /* RolePickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76E7D90A1DEAD49F0090B6A8 /* RolePickerView.swift */; };
 		76F507521DEEC4B900CEE6C7 /* Loading.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76F507511DEEC4B900CEE6C7 /* Loading.swift */; };
+		76F507541DEEDB5100CEE6C7 /* AddShipmentTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76F507531DEEDB5100CEE6C7 /* AddShipmentTableViewController.swift */; };
 		76FF14A91DD36704004D32DA /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76FF14A81DD36704004D32DA /* MainViewController.swift */; };
 		76FF14B31DD3673F004D32DA /* queryManage.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 76FF14B21DD3673F004D32DA /* queryManage.storyboard */; };
 		76FF14B51DD36771004D32DA /* QueryManageTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76FF14B41DD36771004D32DA /* QueryManageTableViewController.swift */; };
@@ -132,6 +133,7 @@
 		76E7D9081DEAC5370090B6A8 /* RoleEditTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RoleEditTableViewController.swift; sourceTree = "<group>"; };
 		76E7D90A1DEAD49F0090B6A8 /* RolePickerView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RolePickerView.swift; sourceTree = "<group>"; };
 		76F507511DEEC4B900CEE6C7 /* Loading.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Loading.swift; sourceTree = "<group>"; };
+		76F507531DEEDB5100CEE6C7 /* AddShipmentTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddShipmentTableViewController.swift; sourceTree = "<group>"; };
 		76FF14A81DD36704004D32DA /* MainViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
 		76FF14B21DD3673F004D32DA /* queryManage.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = queryManage.storyboard; sourceTree = "<group>"; };
 		76FF14B41DD36771004D32DA /* QueryManageTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QueryManageTableViewController.swift; sourceTree = "<group>"; };
@@ -259,6 +261,7 @@
 			children = (
 				765E74361DE14EED005A9B63 /* ShipmentTableViewController.swift */,
 				765E74381DE14F61005A9B63 /* shipment.storyboard */,
+				76F507531DEEDB5100CEE6C7 /* AddShipmentTableViewController.swift */,
 			);
 			path = Shipment;
 			sourceTree = "<group>";
@@ -595,6 +598,7 @@
 				7699D3A41DE6D4E400E0F6B2 /* BaseTableViewCell.swift in Sources */,
 				7654B4A31DEBD56800527B79 /* GameAccountRolePickerView.swift in Sources */,
 				767CD4BC1DE580810084B302 /* Role.swift in Sources */,
+				76F507541DEEDB5100CEE6C7 /* AddShipmentTableViewController.swift in Sources */,
 				7699D3951DE6AF9B00E0F6B2 /* ErrorUtil.swift in Sources */,
 				76DB90561DE49B07001FA5FD /* HttpGameClient.swift in Sources */,
 				7699D3A01DE6C91200E0F6B2 /* LoadingView.swift in Sources */,

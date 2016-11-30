@@ -63,6 +63,8 @@ class RoleContactTableViewController: BaseTableViewController {
         }
         
         self.tableView.reloadData()
+        
+        initTableIndex()
     }
     
     //MARKS: Init tableview index
@@ -118,6 +120,7 @@ class RoleContactTableViewController: BaseTableViewController {
     
     //MARKS: Add Footer View
     func addFooter(){
+        if self.list.count == 0 { return }
         let footerView:UIView = UIView(frame: CGRect(x:0,y:0,width:tableView.frame.size.width,height:footerHeight))
         let footerlabel:UILabel = UILabel(frame: footerView.bounds)
         footerlabel.textColor = UIColor.gray
@@ -146,7 +149,6 @@ class RoleContactTableViewController: BaseTableViewController {
             initFrame()
         }
         
-        initTableIndex()
         addHeader()
         addFooter()
         if self.tableViewIndex != nil {
@@ -162,25 +164,21 @@ class RoleContactTableViewController: BaseTableViewController {
             return true
         }
         
-        if roleName == nil {
-            return true
-        }
-        
-        if (roleName?.isEmpty)! {
-            return true
-        }
-        
-        for session in self.totalList {
-            
-            for contact in session.contacts {
-                let role = contact as! Role
-                if role.roleName == self.roleName {
-                    return false
+        if roleName != nil {
+            for session in self.totalList {
+                
+                for contact in session.contacts {
+                    let role = contact as! Role
+                    if role.roleName == self.roleName {
+                        return false
+                    }
                 }
             }
+            
+            return true
         }
         
-        return true
+        return false
     }
     
     

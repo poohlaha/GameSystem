@@ -24,8 +24,8 @@ class Role:BaseModel {
 
 class RoleUtil {
     
-    static let ROLEEDIT_SUCCESS = "保存角色信息成功!"
-    static let ROLEEDIT_FAILED = "保存角色信息失败!"
+    static let ROLEEDIT_SUCCESS = "修改角色信息成功!"
+    static let ROLEEDIT_FAILED = "修改角色信息失败!"
     static let ROLEEDIT_TIP = "当前操作未保存,是否需要保存?"
     
     //解析Role数据

@@ -50,4 +50,8 @@ class ConstantUtil: NSObject {
     static let isRoleShipDataValue:[Int] = [0,1]
     
     static let names:[String] = ["game","gameAccount","role"]
+    
+    static let httpRequestTime:TimeInterval = 0.5
 }
+
+

@@ -94,7 +94,7 @@ class RoleContactDetailTableViewController: BaseTableViewController {
     }
     
     //取消点击事件
-    func setCellStyleNone(){
+    override func setCellStyleNone(){
         for i in 0...tableView.numberOfSections - 1 {
             for j in 0...tableView.numberOfRows(inSection: i) - 1 {
                 let indexPath = NSIndexPath(row: j, section: i)
@@ -136,5 +136,14 @@ class RoleContactDetailTableViewController: BaseTableViewController {
     
     //发货事件
     @IBAction func shipmentBtnClick(_ sender: AnyObject) {
+        //根据storyboard获取controller
+        let sb = UIStoryboard(name:"shipment", bundle: nil)
+        let addShipmentTableViewController = sb.instantiateViewController(withIdentifier: "AddShipmentTableViewController") as! AddShipmentTableViewController
+        
+        addShipmentTableViewController.hidesBottomBarWhenPushed = true
+        addShipmentTableViewController.flag = 1
+        addShipmentTableViewController.parentRoleDetailViewController = self
+        
+        self.navigationController?.pushViewController(addShipmentTableViewController, animated: true)
     }
 }

@@ -14,6 +14,18 @@ class BaseTableViewController: UITableViewController {
     
     //加载条
     var loadingView:Loading?
+    
+    //取消点击事件
+    func setCellStyleNone(){
+        for i in 0...tableView.numberOfSections - 1 {
+            for j in 0...tableView.numberOfRows(inSection: i) - 1 {
+                let indexPath = NSIndexPath(row: j, section: i)
+                let cell = tableView.cellForRow(at: indexPath as IndexPath)
+                cell?.selectionStyle = .none
+            }
+        }
+        
+    }
 
     //MARKS: 创建加载View
     func createLoadingView(){

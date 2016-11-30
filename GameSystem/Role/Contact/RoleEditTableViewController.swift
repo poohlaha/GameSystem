@@ -59,18 +59,7 @@ class RoleEditTableViewController: BaseTableViewController,RolePickerViewDelegat
         gameAccountBtn.addTarget(self, action: #selector(RoleEditTableViewController.gameAccountBtnClick), for: .touchUpInside)
         gameAccountBtn.contentHorizontalAlignment = .left
     }
-    
-    //取消点击事件
-    func setCellStyleNone(){
-        for i in 0...tableView.numberOfSections - 1 {
-            for j in 0...tableView.numberOfRows(inSection: i) - 1 {
-                let indexPath = NSIndexPath(row: j, section: i)
-                let cell = tableView.cellForRow(at: indexPath as IndexPath)
-                cell?.selectionStyle = .none
-            }
-        }
-        
-    }
+
     
     let gameAccountRolePickerViewHeight:CGFloat = 200
     func createGameAccountRoleView(gameSelectedData: Int?,gameAccountSelectedData:Int?,roleSelectedData:Int?) -> GameAccountRoleView {
@@ -151,9 +140,6 @@ class RoleEditTableViewController: BaseTableViewController,RolePickerViewDelegat
         gameAccountBtn.setTitle((role.gameAccount?.game?.gameName)! + " " + (role.gameAccount?.nickName!)!, for: .normal)
         gameIdLabel.text = "\(role.gameAccount!.game!.id!)"
         gameAccountIdLabel.text = "\(role.gameAccount!.id!)"
-        
-        
-        
     }
     
     override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
