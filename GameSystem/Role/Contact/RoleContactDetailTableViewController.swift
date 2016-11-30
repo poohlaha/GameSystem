@@ -21,14 +21,21 @@ class RoleContactDetailTableViewController: BaseTableViewController {
     @IBOutlet weak var isRoleRechargeLabel: UILabel!
     @IBOutlet weak var shipmentBtn: UIButton!
     @IBOutlet weak var editRoleBtn: UIButton!
+    var parentController: RoleContactTableViewController?
     
     
     var photoImage:UIImage?
     var roleId:Int?
+    var role:Role?
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        createLeftBarItem()
+    }
+
+    override func back() {
+         self.parentController?.roleName = self.role?.roleName
+         self.navigationController?.popViewController(animated: true)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -42,14 +49,14 @@ class RoleContactDetailTableViewController: BaseTableViewController {
         if roleId == nil { return }
         
         let params:Dictionary<String,Any> = ["id": roleId!]
-        let role:Role = RoleUtil.queryRoleById(params: params)
-        if role.isEqual(nil){ return }
+        self.role = RoleUtil.queryRoleById(params: params)
+        if role == nil { return }
         
-        roleNameLabel.text = role.roleName ?? ""
-        roleLevelLabel.text = "角色等级:\(role.roleLevel ?? 0)"
+        roleNameLabel.text = role?.roleName ?? ""
+        roleLevelLabel.text = "角色等级:\(role?.roleLevel ?? 0)"
         
-        currencyLabel.text = "\(role.currency ?? 0)"
-        if role.isRoleShip == 0 {
+        currencyLabel.text = "\(role?.currency ?? 0)"
+        if role?.isRoleShip == 0 {
             isRoleShipLabel.text = ConstantUtil.isRoleShipData[0]
             isRoleShipLabel.font = UIFont(name: ComponentUtil.fontNameBold, size: 18)
             isRoleShipLabel.textColor = ComponentUtil.fontColorGreen
@@ -57,7 +64,7 @@ class RoleContactDetailTableViewController: BaseTableViewController {
             isRoleShipLabel.text = ConstantUtil.isRoleShipData[1]
         }
        
-        if role.isRoleRecharge == 0 {
+        if role?.isRoleRecharge == 0 {
             isRoleRechargeLabel.text = ConstantUtil.isRoleRechargeData[0]
             isRoleRechargeLabel.font = UIFont(name: ComponentUtil.fontNameBold, size: 18)
             isRoleRechargeLabel.textColor = ComponentUtil.fontColorBlue
@@ -66,8 +73,8 @@ class RoleContactDetailTableViewController: BaseTableViewController {
         }
         
         //设置游戏
-        gameLabel.text = role.gameAccount?.game?.gameName ?? ""
-        gameAccountLabel.text = role.gameAccount?.nickName ?? ""
+        gameLabel.text = role?.gameAccount?.game?.gameName ?? ""
+        gameAccountLabel.text = role?.gameAccount?.nickName ?? ""
     }
     
     //初始化页面属性

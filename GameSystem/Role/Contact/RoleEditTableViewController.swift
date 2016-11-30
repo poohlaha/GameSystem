@@ -30,10 +30,23 @@ class RoleEditTableViewController: BaseTableViewController,RolePickerViewDelegat
     
     var roleContactDetailController:RoleContactDetailTableViewController?
     
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        createLeftBarItem()
         initFrame()
         initData()
+    }
+    
+    //返回事件,添加提示对话框
+   override func back() {
+        let alertController = ComponentUtil.alert(title: RoleUtil.ROLEEDIT_TIP, message: "", isShowCancel: true, cancelCallBack: { (alertAction) in
+                self.navigationController?.popViewController(animated: true)
+            }) { (alertAction) in
+                self.updateRole()
+            }
+        
+        self.present(alertController, animated: true, completion: nil)
     }
     
     func initFrame(){
@@ -161,8 +174,8 @@ class RoleEditTableViewController: BaseTableViewController,RolePickerViewDelegat
          isRoleRechargeLabel.text = "\(ConstantUtil.isRoleRechargeDataValue[row])"
     }
     
-    //完成事件
-    @IBAction func doneClick(_ sender: AnyObject) {
+    //修改角色信息
+    func updateRole(){
         let role = Role()
         role.id = Int(roleIdLabel.text!)
         
@@ -213,24 +226,30 @@ class RoleEditTableViewController: BaseTableViewController,RolePickerViewDelegat
         role.gameAccount?.game = game
         role.isRoleRecharge = Int(isRoleRecharge)
         
-        RoleUtil.saveRole(role: role){ (result:String) in
-            if result != "true" {
-                self.alert(title: "保存失败!")
+        RoleUtil.updateRole(role: role){ (resultCode:String,resultMessage:String) in
+            if resultCode != "success" {
+                self.alert(title: resultMessage)
                 return
             }
-            let alertController = UIAlertController(title: "保存成功!", message: "", preferredStyle: UIAlertControllerStyle.alert)
+            
+            let alertController = UIAlertController(title: RoleUtil.ROLEEDIT_SUCCESS, message: "", preferredStyle: UIAlertControllerStyle.alert)
             let okAction = UIAlertAction(title: "确定", style: UIAlertActionStyle.default, handler: { (UIAlertAction) in
                 self.roleContactDetailController?.roleId = self.roleId
                 self.navigationController?.popViewController(animated: true)
                 //self.performSegue(withIdentifier: "toEditRolePage", sender: nil)
                 /*self.dismiss(animated: true, completion: {
-                    self.roleContactDetailController?.roleId = self.roleId
-                })*/
+                 self.roleContactDetailController?.roleId = self.roleId
+                 })*/
             })
             
             alertController.addAction(okAction)
             self.present(alertController, animated: true, completion: nil)
         }
+    }
+    
+    //完成事件
+    @IBAction func doneClick(_ sender: AnyObject) {
+        updateRole()
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {

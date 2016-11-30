@@ -31,7 +31,7 @@ class RoleQueryTableViewCell: BaseTableViewCell {
     let viewLabelFont = UIFont(name: ComponentUtil.fontName, size: 16)
     let viewLabelFontBold = UIFont.boldSystemFont(ofSize: 16)
     let rechargeLabelFontBold = UIFont.boldSystemFont(ofSize: 16)
-    let dateLabelFont = UIFont(name: ComponentUtil.fontName, size: 20)
+    let dateLabelFont = UIFont(name: ComponentUtil.fontName, size: 16)
     
     let viewLabelColor:UIColor = UIColor.darkGray
     let currencyLabelColor:UIColor = ComponentUtil.fontColorGreen//#00c896

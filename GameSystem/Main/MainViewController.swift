@@ -212,7 +212,7 @@ class MainViewController: UIViewController {
 
         
         let roleManageController = RoleManageTabBarController()
-        roleManageController.navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(named: "back"), style: .done, target: self, action: #selector(MainViewController.back))
+        roleManageController.navigationItem.leftBarButtonItem = UIBarButtonItem(image: ComponentUtil.backImage, style: .done, target: self, action: #selector(MainViewController.back))
         self.navigationController?.pushViewController(roleManageController, animated: true)
         self.navigationController?.isNavigationBarHidden = false
     }

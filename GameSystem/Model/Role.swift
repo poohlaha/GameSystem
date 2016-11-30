@@ -24,6 +24,10 @@ class Role:BaseModel {
 
 class RoleUtil {
     
+    static let ROLEEDIT_SUCCESS = "保存角色信息成功!"
+    static let ROLEEDIT_FAILED = "保存角色信息失败!"
+    static let ROLEEDIT_TIP = "当前操作未保存,是否需要保存?"
+    
     //解析Role数据
     static func anaylsRole(data:NSDictionary) -> Role{
         let role = Role()
@@ -133,13 +137,23 @@ class RoleUtil {
         return role
     }
     
-    static func saveRole(role:Role,callback:@escaping (_ result:String)->()) {
+    static func saveRole(role:Role,callback:@escaping (_ resultCode:String,_ resultMessage:String)->()) {
         //let jsonData = try! JSONSerialization.data(withJSONObject: convertToStr(role: role), options: JSONSerialization.WritingOptions.prettyPrinted)
        // let param = NSString(data: jsonData, encoding: String.Encoding.utf8.rawValue)
         BaseUtil.load(url: DBConstantUtil.saveRole,params: convertToStr(role: role)) { (result:NSDictionary) in
             let json = result as! Dictionary<String,Any>
-            let msg = json["msg"] as? String
-            callback(msg!)
+            let resultCode = json["resultCode"] as? String
+            let resultMessage = json["resultMessage"]  as? String
+            callback(resultCode!,resultMessage!)
+        }
+    }
+    
+    static func updateRole(role:Role,callback:@escaping (_ resultCode:String,_ resultMessage:String)->()) {
+        BaseUtil.load(url: DBConstantUtil.updateRole,params: convertToStr(role: role)) { (result:NSDictionary) in
+            let json = result as! Dictionary<String,Any>
+            let resultCode = json["resultCode"] as? String
+            let resultMessage = json["resultMessage"]  as? String
+            callback(resultCode!,resultMessage!)
         }
     }
     

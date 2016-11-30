@@ -23,9 +23,9 @@ class RoleQueryTableViewController: BaseTableViewController {
         loadData()
     }
 
-    //加载数据
+    //加载数据,查询所有可发货的列表
     func loadData(){
-        let params:Dictionary<String,Any> = ["pageNumber": 1,"pageSize":ConstantUtil.pageSize]
+        let params:Dictionary<String,Any> = ["pageNumber": 1,"pageSize":ConstantUtil.pageSize,"isRoleShip":ConstantUtil.isRoleShipDataValue[0]]
         self.totalList = RoleUtil.loadRoleList(params: params)
     }
     
@@ -38,6 +38,7 @@ class RoleQueryTableViewController: BaseTableViewController {
     override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
        return 0.1
     }
+    
 
     // MARK: - Table view data source
 

@@ -18,6 +18,16 @@ class BaseTableViewController: UITableViewController {
         }
     }
     
+    func createLeftBarItem(){
+        let leftBarItem = UIBarButtonItem(image: ComponentUtil.backImage, style: .plain, target: self, action: #selector(BaseTableViewController.back))
+        leftBarItem.image = ComponentUtil.backImage
+        self.navigationItem.leftBarButtonItem = leftBarItem
+    }
+    
+    func back(){
+        self.navigationController?.popViewController(animated: true)
+    }
+    
     //添加长按手势
     func initLongPressGestureRecognizer(action:Selector) -> GameUILongPressGestureRecognizer{
         let longPressGesutre = GameUILongPressGestureRecognizer(target: self, action: action)

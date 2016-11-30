@@ -21,6 +21,8 @@ class ComponentUtil: NSObject {
     static let navigationColor = ConstantUtil.mainBgColors[0]
     
     static let statusBarFrame = UIApplication.shared.statusBarFrame//status bar
+    static let backImage:UIImage = UIImage(named: "back")!
+    
 
     //MARKS: 创建Label
     static func createLabel(rect:CGRect,content:String,color:UIColor,textAlignment:NSTextAlignment,background:UIColor,fontName:String,fontSize:CGFloat) -> UILabel {
@@ -90,17 +92,17 @@ class ComponentUtil: NSObject {
     }
     
     //系统弹出框
-    static func alert(title:String?,message:String?,isShowCancel:Bool,cancelCallBack:(),doneCallback:()) -> UIAlertController{
+    static func alert(title:String?,message:String?,isShowCancel:Bool,cancelCallBack:@escaping (_ alertAction:UIAlertAction)->(),doneCallback:@escaping (_ alertAction:UIAlertAction)->()) -> UIAlertController{
         let alertController = UIAlertController(title: title ?? "", message: message ?? "", preferredStyle: UIAlertControllerStyle.alert)
         if isShowCancel {
-            let cancelAction = UIAlertAction(title: "取消", style: UIAlertActionStyle.cancel){ (UIAlertAction) -> Void in
-                cancelCallBack
+            let cancelAction = UIAlertAction(title: "取消", style: UIAlertActionStyle.cancel){ (alertAction) -> Void in
+                cancelCallBack(alertAction)
             }
             alertController.addAction(cancelAction)
         }
         
-        let okAction = UIAlertAction(title: "确定", style: UIAlertActionStyle.default) { (UIAlertAction) -> Void in
-            doneCallback
+        let okAction = UIAlertAction(title: "确定", style: UIAlertActionStyle.default) { (alertAction) -> Void in
+            doneCallback(alertAction)
         }
         
         alertController.addAction(okAction)
