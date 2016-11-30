@@ -35,7 +35,9 @@ class RoleEditTableViewController: BaseTableViewController,RolePickerViewDelegat
         super.viewDidLoad()
         createLeftBarItem()
         initFrame()
-        initData()
+        
+        self.createLoadingView()
+        startRequestTimer(info:nil,selector: #selector(RoleEditTableViewController.initData))
     }
     
     //返回事件,添加提示对话框
@@ -114,13 +116,25 @@ class RoleEditTableViewController: BaseTableViewController,RolePickerViewDelegat
     }
     
     //通过RoleId查找角色,显示在详情页面上
-    func initData(){
+    func initData(timer:Timer){
         if roleId == nil { return }
         
         roleIdLabel.text = "\(roleId!)"
+        //获取gamelist,gameaccountlist,rolelist
         
         let params:Dictionary<String,Any> = ["id": roleId!]
-        self.role = RoleUtil.queryRoleById(params: params)
+        self.role = RoleUtil.queryRoleById(params: params,callback: {
+            let list:Dictionary<String,Array<AnyObject>> = GameUtil.loadAllList(callback:{
+                self.removeLoadingView()
+            }())
+            
+            if list.isEmpty || list.count == 0 { return }
+            
+            self.gameList = list["game"] as? [Game] ?? []
+            self.gameAccountList = list["gameAccount"] as? [GameAccount] ?? []
+            self.roleList = list["role"] as? [Role] ?? []
+            
+        }())
         if role.isEqual(nil){ return }
         
         roleNameTextField.text = role.roleName ?? ""
@@ -139,13 +153,7 @@ class RoleEditTableViewController: BaseTableViewController,RolePickerViewDelegat
         gameAccountIdLabel.text = "\(role.gameAccount!.id!)"
         
         
-        //获取gamelist,gameaccountlist,rolelist
-        let list:Dictionary<String,Array<AnyObject>> = GameUtil.loadAllList()
-        if list.isEmpty || list.count == 0 { return }
         
-        self.gameList = list["game"] as? [Game] ?? []
-        self.gameAccountList = list["gameAccount"] as? [GameAccount] ?? []
-        self.roleList = list["role"] as? [Role] ?? []
     }
     
     override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
@@ -226,7 +234,14 @@ class RoleEditTableViewController: BaseTableViewController,RolePickerViewDelegat
         role.gameAccount?.game = game
         role.isRoleRecharge = Int(isRoleRecharge)
         
+        createLoadingView()
+        startRequestTimer(info:role,selector: #selector(RoleEditTableViewController.update))
+    }
+    
+    func update(timer: Timer){
+        let role = timer.userInfo as! Role
         RoleUtil.updateRole(role: role){ (resultCode:String,resultMessage:String) in
+            self.removeLoadingView()
             if resultCode != "success" {
                 self.alert(title: resultMessage)
                 return

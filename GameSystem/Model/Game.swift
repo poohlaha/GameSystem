@@ -83,7 +83,7 @@ class GameUtil {
     }
     
     
-    static func loadAllList() ->Dictionary<String,Array<AnyObject>>{
+    static func loadAllList(callback:()) ->Dictionary<String,Array<AnyObject>>{
         var gameList:[Game] = []
         var gameAccountList:[GameAccount] = []
         var roleList:[Role] = []
@@ -115,6 +115,8 @@ class GameUtil {
                     roleList.append(role)
                 }
             }
+            
+            callback
             
         }
         

@@ -47,12 +47,22 @@ class RoleContactTableViewController: BaseTableViewController {
         self.navigationController?.isNavigationBarHidden = false
     }
     
+    func initFrame(){
+        self.createLoadingView()
+        startRequestTimer(info:nil,selector: #selector(RoleContactTableViewController.loadAllRolesList))
+    }
+    
     //加载所有角色列表
-    func loadAllRolesList(){
-        self.list = RoleUtil.loadRoleList(params: nil)
+    func loadAllRolesList(timer:Timer){
+        self.list = RoleUtil.loadRoleList(params: nil,callback: {
+            self.removeLoadingView()
+        })
+        
         if !self.list.isEmpty && self.list.count > 0 {
             self.totalList = RoleUtil.anaylsRoleContact(roles: list)
         }
+        
+        self.tableView.reloadData()
     }
     
     //MARKS: Init tableview index
@@ -133,8 +143,7 @@ class RoleContactTableViewController: BaseTableViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         if compareIsRoleNameCharge() {
-            loadAllRolesList()
-            self.tableView.reloadData()
+            initFrame()
         }
         
         initTableIndex()

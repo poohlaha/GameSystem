@@ -84,7 +84,7 @@ class RoleUtil {
     }
     
     //加载角色列表
-    static func loadRoleList(params:Dictionary<String,Any>?) -> Array<Role>{
+    static func loadRoleList(params:Dictionary<String,Any>?,callback:@escaping ()->()) -> Array<Role>{
         /*let param:Dictionary<String,Any> = params ?? Dictionary<String,Any>()
         var totalList:[Role] = Array<Role>()
         
@@ -113,6 +113,8 @@ class RoleUtil {
                 let role = anaylsRole(data: _data)
                 totalList.append(role)
             }
+            
+            callback()
         }
         
         return totalList
@@ -122,7 +124,7 @@ class RoleUtil {
         return ContactModel().convert(contacts: roles, fieldName: "roleName", isNeedPhoto: true)
     }
     
-    static func queryRoleById(params:Dictionary<String,Any>) -> Role{
+    static func queryRoleById(params:Dictionary<String,Any>,callback:()) -> Role{
         var role:Role = Role()
         
         /*
@@ -134,6 +136,7 @@ class RoleUtil {
         
         BaseUtil.load(url: DBConstantUtil.queryRoleById,params: params) { (result:NSDictionary) in
             role = anaylsRole(data: result)
+            callback
         }
         
         return role

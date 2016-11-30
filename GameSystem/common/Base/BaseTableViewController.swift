@@ -10,7 +10,30 @@ import UIKit
 
 class BaseTableViewController: UITableViewController {
 
-     var customAlert:GameBottomAlert?
+    var customAlert:GameBottomAlert?
+    
+    //加载条
+    var loadingView:Loading?
+
+    //MARKS: 创建加载View
+    func createLoadingView(){
+        if loadingView == nil {
+            let navigationHeight:CGFloat = 44 + ComponentUtil.statusBarFrame.height
+            //let beginY:CGFloat = (self.view.frame.height - navigationHeight) / 2 - self.loadingViewHeight / 2
+            //let beginX:CGFloat = self.view.frame.width / 2 - self.loadingViewWidth / 2
+            
+            loadingView = Loading(frame: CGRect(x: 0, y: navigationHeight, width: ComponentUtil.mainFrame.width, height: ComponentUtil.mainFrame.height))
+            loadingView?.backgroundColor = ComponentUtil.backgroundBg
+        }
+        
+        self.parent?.view.addSubview(loadingView!)
+        //self.view.addSubview(loadingView!)
+    }
+    
+    func removeLoadingView(){
+        self.loadingView?.removeFromSuperview()
+    }
+
     
     func createCustomAlert(titles:[String],colors:[UIColor],callback:@escaping (_ result:AnyObject,_ this:AnyObject)->()) -> GameBottomAlert{
         return GameBottomAlert(frame: CGRect(x:0,y:-1,width:UIScreen.main.bounds.width,height:0), titles: titles,colors: colors,fontSize: 0) { (result,this) in
@@ -26,6 +49,11 @@ class BaseTableViewController: UITableViewController {
     
     func back(){
         self.navigationController?.popViewController(animated: true)
+    }
+    
+    //请求定时器
+    func startRequestTimer(info:Any?,selector:Selector){
+        Timer.scheduledTimer(timeInterval: ConstantUtil.httpRequestTime, target: self, selector: selector, userInfo: info, repeats: false)
     }
     
     //添加长按手势

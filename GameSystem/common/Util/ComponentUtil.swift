@@ -20,6 +20,7 @@ class ComponentUtil: NSObject {
     static let sepatatorColor: UIColor = UIColor(red: 219/255.0, green: 219/255.0, blue: 219/255.0, alpha: 1)//分割线
     static let navigationColor = ConstantUtil.mainBgColors[0]
     
+    static let mainFrame = UIScreen.main.bounds
     static let statusBarFrame = UIApplication.shared.statusBarFrame//status bar
     static let backImage:UIImage = UIImage(named: "back")!
     

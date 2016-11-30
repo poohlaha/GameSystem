@@ -54,6 +54,7 @@
 		76DB90561DE49B07001FA5FD /* HttpGameClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76DB90551DE49B07001FA5FD /* HttpGameClient.swift */; };
 		76E7D9091DEAC5370090B6A8 /* RoleEditTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76E7D9081DEAC5370090B6A8 /* RoleEditTableViewController.swift */; };
 		76E7D90B1DEAD49F0090B6A8 /* RolePickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76E7D90A1DEAD49F0090B6A8 /* RolePickerView.swift */; };
+		76F507521DEEC4B900CEE6C7 /* Loading.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76F507511DEEC4B900CEE6C7 /* Loading.swift */; };
 		76FF14A91DD36704004D32DA /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76FF14A81DD36704004D32DA /* MainViewController.swift */; };
 		76FF14B31DD3673F004D32DA /* queryManage.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 76FF14B21DD3673F004D32DA /* queryManage.storyboard */; };
 		76FF14B51DD36771004D32DA /* QueryManageTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76FF14B41DD36771004D32DA /* QueryManageTableViewController.swift */; };
@@ -130,6 +131,7 @@
 		76DB90551DE49B07001FA5FD /* HttpGameClient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HttpGameClient.swift; sourceTree = "<group>"; };
 		76E7D9081DEAC5370090B6A8 /* RoleEditTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RoleEditTableViewController.swift; sourceTree = "<group>"; };
 		76E7D90A1DEAD49F0090B6A8 /* RolePickerView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RolePickerView.swift; sourceTree = "<group>"; };
+		76F507511DEEC4B900CEE6C7 /* Loading.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Loading.swift; sourceTree = "<group>"; };
 		76FF14A81DD36704004D32DA /* MainViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
 		76FF14B21DD3673F004D32DA /* queryManage.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = queryManage.storyboard; sourceTree = "<group>"; };
 		76FF14B41DD36771004D32DA /* QueryManageTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QueryManageTableViewController.swift; sourceTree = "<group>"; };
@@ -334,6 +336,7 @@
 			isa = PBXGroup;
 			children = (
 				7699D39D1DE6C91200E0F6B2 /* LoadingView.swift */,
+				76F507511DEEC4B900CEE6C7 /* Loading.swift */,
 			);
 			path = Loading;
 			sourceTree = "<group>";
@@ -603,6 +606,7 @@
 				7654B49E1DEBC6DA00527B79 /* Game.swift in Sources */,
 				7654B4A51DEC051100527B79 /* GameAccountRoleViewCellCollectionViewCell.swift in Sources */,
 				7659384D1DD3376E000740D5 /* AppDelegate.swift in Sources */,
+				76F507521DEEC4B900CEE6C7 /* Loading.swift in Sources */,
 				76ACF6E41DE7E80600A6CA86 /* BaseModel.swift in Sources */,
 				76ACF6EF1DE8042300A6CA86 /* RoleContactTableViewController.swift in Sources */,
 				7682A2251DE48AEC001CDA47 /* CommonUtil.swift in Sources */,

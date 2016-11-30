@@ -42,16 +42,21 @@ class RoleContactDetailTableViewController: BaseTableViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         initFrame()
-        initData()
+        
+        self.createLoadingView()
+        startRequestTimer(info:nil,selector: #selector(RoleContactDetailTableViewController.initData))
     }
     
     //通过RoleId查找角色,显示在详情页面上
-    func initData(){
+    func initData(timer:Timer){
         self.headerImageView.image = photoImage
         if roleId == nil { return }
         
         let params:Dictionary<String,Any> = ["id": roleId!]
-        self.role = RoleUtil.queryRoleById(params: params)
+        self.role = RoleUtil.queryRoleById(params: params,callback: {
+            self.removeLoadingView()
+        }())
+        
         if role == nil { return }
         
         roleNameLabel.text = role?.roleName ?? ""
