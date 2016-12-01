@@ -162,7 +162,7 @@ class RoleEditTableViewController: BaseTableViewController,RolePickerViewDelegat
     }
     
     //rolePickerView选择事件
-    func rolePickerViewDidSelectRow(row:Int) {
+    func rolePickerViewDidSelectRow(row:Int,view:RolePickerView) {
          let value = ConstantUtil.isRoleRechargeData[row]
          isRoleRechargeBtn.setTitle(value, for: .normal)
          isRoleRechargeLabel.text = "\(ConstantUtil.isRoleRechargeDataValue[row])"
@@ -260,11 +260,4 @@ class RoleEditTableViewController: BaseTableViewController,RolePickerViewDelegat
         }
     }
     
-    func alert(title:String){
-        let alertController = UIAlertController(title: title, message: "", preferredStyle: UIAlertControllerStyle.alert)
-        let okAction = UIAlertAction(title: "确定", style: UIAlertActionStyle.default)
-        
-        alertController.addAction(okAction)
-        self.present(alertController, animated: true, completion: nil)
-    }
 }

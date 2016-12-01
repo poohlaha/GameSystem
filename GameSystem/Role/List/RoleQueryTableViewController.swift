@@ -174,12 +174,12 @@ class RoleQueryTableViewController: BaseTableViewController {
     
     //处理添加发货
     func addShipment(role:Role,alert:GameBottomAlert){
-        print(role)
+       
     }
     
     //处理修改角色
     func updateRole(role:Role,alert:GameBottomAlert){
-        print(role)
+        
     }
     
     //处理取消

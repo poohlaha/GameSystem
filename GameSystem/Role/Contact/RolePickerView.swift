@@ -9,7 +9,7 @@
 import UIKit
 
 @objc protocol RolePickerViewDelegate {
-    @objc optional func rolePickerViewDidSelectRow(row:Int)
+    @objc optional func rolePickerViewDidSelectRow(row:Int,view:RolePickerView)
 }
 
 
@@ -26,6 +26,8 @@ class RolePickerView:UIView,UIPickerViewDelegate,UIPickerViewDataSource  {
     private var pickerViewRowHeight:CGFloat = 30
     
     private let toolbarHeight:CGFloat = 40
+    
+    var viewName:String = "rolePickerView"
     
     let width:CGFloat = UIScreen.main.bounds.width
     let height:CGFloat = UIScreen.main.bounds.height / 3
@@ -79,7 +81,7 @@ class RolePickerView:UIView,UIPickerViewDelegate,UIPickerViewDataSource  {
     
     func buttonClick(){
         let row = pickerView?.selectedRow(inComponent: 0)
-        rolePickerViewDelegate?.rolePickerViewDidSelectRow!(row:row!)
+        rolePickerViewDelegate?.rolePickerViewDidSelectRow!(row:row!,view:self)
         self.removeFromSuperview()
     }
     

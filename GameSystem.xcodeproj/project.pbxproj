@@ -21,6 +21,7 @@
 		7659385A1DD3376E000740D5 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 765938581DD3376E000740D5 /* LaunchScreen.storyboard */; };
 		765938651DD3376E000740D5 /* GameSystemTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 765938641DD3376E000740D5 /* GameSystemTests.swift */; };
 		765938701DD3376E000740D5 /* GameSystemUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7659386F1DD3376E000740D5 /* GameSystemUITests.swift */; };
+		765E682F1DEF1FA8006EB35F /* Shipment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 765E682E1DEF1FA8006EB35F /* Shipment.swift */; };
 		765E74371DE14EED005A9B63 /* ShipmentTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 765E74361DE14EED005A9B63 /* ShipmentTableViewController.swift */; };
 		765E74391DE14F61005A9B63 /* shipment.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 765E74381DE14F61005A9B63 /* shipment.storyboard */; };
 		767CD4AA1DE54FAB0084B302 /* role.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 767CD4A91DE54FAB0084B302 /* role.storyboard */; };
@@ -99,6 +100,7 @@
 		7659386B1DD3376E000740D5 /* GameSystemUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = GameSystemUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		7659386F1DD3376E000740D5 /* GameSystemUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameSystemUITests.swift; sourceTree = "<group>"; };
 		765938711DD3376E000740D5 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		765E682E1DEF1FA8006EB35F /* Shipment.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Shipment.swift; sourceTree = "<group>"; };
 		765E74361DE14EED005A9B63 /* ShipmentTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShipmentTableViewController.swift; sourceTree = "<group>"; };
 		765E74381DE14F61005A9B63 /* shipment.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = shipment.storyboard; sourceTree = "<group>"; };
 		767CD4A91DE54FAB0084B302 /* role.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = role.storyboard; sourceTree = "<group>"; };
@@ -274,6 +276,7 @@
 				76ACF6E51DE7E9E300A6CA86 /* BaseContact.swift */,
 				7654B49D1DEBC6DA00527B79 /* Game.swift */,
 				7654B49F1DEBCEC000527B79 /* GameAccount.swift */,
+				765E682E1DEF1FA8006EB35F /* Shipment.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -616,6 +619,7 @@
 				7682A2251DE48AEC001CDA47 /* CommonUtil.swift in Sources */,
 				76ACF6EE1DE8042300A6CA86 /* RoleManageTabBarController.swift in Sources */,
 				7699D3A21DE6C97E00E0F6B2 /* BaseDrawView.swift in Sources */,
+				765E682F1DEF1FA8006EB35F /* Shipment.swift in Sources */,
 				76B29B8E1DE6EF3D00D80BA1 /* BaseDelegate.swift in Sources */,
 				76DB90531DE493A5001FA5FD /* DBConstantUtil.swift in Sources */,
 				76ACF6F31DE8047400A6CA86 /* RoleContactTableViewCell.swift in Sources */,

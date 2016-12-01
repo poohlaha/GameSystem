@@ -68,6 +68,14 @@ class BaseTableViewController: UITableViewController {
         Timer.scheduledTimer(timeInterval: ConstantUtil.httpRequestTime, target: self, selector: selector, userInfo: info, repeats: false)
     }
     
+    func alert(title:String){
+        let alertController = UIAlertController(title: title, message: "", preferredStyle: UIAlertControllerStyle.alert)
+        let okAction = UIAlertAction(title: "确定", style: UIAlertActionStyle.default)
+        
+        alertController.addAction(okAction)
+        self.present(alertController, animated: true, completion: nil)
+    }
+    
     //添加长按手势
     func initLongPressGestureRecognizer(action:Selector) -> GameUILongPressGestureRecognizer{
         let longPressGesutre = GameUILongPressGestureRecognizer(target: self, action: action)

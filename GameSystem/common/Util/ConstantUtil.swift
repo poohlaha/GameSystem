@@ -49,6 +49,12 @@ class ConstantUtil: NSObject {
     static let isRoleShipData:[String] = ["可发货","不可发货"]
     static let isRoleShipDataValue:[Int] = [0,1]
     
+    static let isRolePaymentData:[String] = ["已付款","未付款"]
+    static let isRolePaymentDataValue:[Int] = [0,1]
+    
+    static let isRoleBuybackData:[String] = ["已买回","未买回"]
+    static let isRoleBuybackDataValue:[Int] = [0,1]
+    
     static let names:[String] = ["game","gameAccount","role"]
     
     static let httpRequestTime:TimeInterval = 0.5

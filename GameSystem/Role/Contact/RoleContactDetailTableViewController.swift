@@ -141,7 +141,7 @@ class RoleContactDetailTableViewController: BaseTableViewController {
         let addShipmentTableViewController = sb.instantiateViewController(withIdentifier: "AddShipmentTableViewController") as! AddShipmentTableViewController
         
         addShipmentTableViewController.hidesBottomBarWhenPushed = true
-        addShipmentTableViewController.flag = 1
+        addShipmentTableViewController.roleId = self.roleId
         addShipmentTableViewController.parentRoleDetailViewController = self
         
         self.navigationController?.pushViewController(addShipmentTableViewController, animated: true)
