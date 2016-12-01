@@ -130,12 +130,10 @@ class RoleQueryTableViewController: BaseTableViewController {
                 let role:Role = gestrue.data![0] as! Role
                 //self.parent?.view.bringSubview(toFront: customAlert!)
                 
-                let alert = self.createCustomAlert(titles: self.titles,colors:self.colors){ (result,this) in
-                    self.alertEvents(views: result as! Dictionary<String, Any>,role:role,alert: this as! GameBottomAlert)
-                }
-               
+                let alert = self.createCustomAlert(titles: self.titles,colors:self.colors)
                 let controller = self.parent
                 controller?.view.addSubview(alert)
+                self.alertEvents(views: alert.views,role:role,alert: alert)
             }
         }
     }
@@ -158,9 +156,9 @@ class RoleQueryTableViewController: BaseTableViewController {
                     }
                     
                     if i == 1 {//发货
-                        addShipment(role: role,alert:alert)
+                        addShipment(view: _view as! UIView,role: role,alert:alert)
                     } else if i == 2 {//修改
-                        updateRole(role: role,alert:alert)
+                        updateRole(view: _view as! UIView,role: role,alert:alert)
                     } else if i == 3 {//取消
                         cancel(view: _view as! UIView,alert:alert)
                     }
@@ -173,13 +171,57 @@ class RoleQueryTableViewController: BaseTableViewController {
     }
     
     //处理添加发货
-    func addShipment(role:Role,alert:GameBottomAlert){
-       
+    func addShipment(view:UIView,role:Role,alert:GameBottomAlert){
+        let addShipmentTap = GameUITapGestureRecognizer(target: self, action: #selector(RoleQueryTableViewController.addShipmentGameUITapGestureRecognizer(tap:)))
+        addShipmentTap.data = [role,alert]
+        view.addGestureRecognizer(addShipmentTap)
+        
+    }
+    
+    //发货点击事件
+    func addShipmentGameUITapGestureRecognizer(tap:GameUITapGestureRecognizer){
+        var roleId:Int = 0
+        var alert:GameBottomAlert?
+        if (tap.data != nil) && (tap.data?.count)! > 0{
+            let role:Role = tap.data?[0] as! Role
+            roleId = role.id!
+            alert = tap.data?[1] as? GameBottomAlert
+        }
+        
+        
+        //根据storyboard获取controller
+        let sb = UIStoryboard(name:"shipment", bundle: nil)
+        let addShipmentTableViewController = sb.instantiateViewController(withIdentifier: "AddShipmentTableViewController") as! AddShipmentTableViewController
+        addShipmentTableViewController.hidesBottomBarWhenPushed = true
+        addShipmentTableViewController.roleId = roleId
+        self.navigationController?.pushViewController(addShipmentTableViewController, animated: true)
+        alert?.removeFromSuperview()
     }
     
     //处理修改角色
-    func updateRole(role:Role,alert:GameBottomAlert){
-        
+    func updateRole(view:UIView,role:Role,alert:GameBottomAlert){
+        let editRoleTap = GameUITapGestureRecognizer(target: self, action: #selector(RoleQueryTableViewController.editRoleGameUITapGestureRecognizer(tap:)))
+        editRoleTap.data = [role,alert]
+        view.addGestureRecognizer(editRoleTap)
+    }
+    
+    //修改角色点击事件
+    func editRoleGameUITapGestureRecognizer(tap:GameUITapGestureRecognizer){
+        var roleId:Int = 0
+        var alert:GameBottomAlert?
+        if (tap.data != nil) && (tap.data?.count)! > 0{
+            let role:Role = tap.data?[0] as! Role
+            roleId = role.id!
+            alert = tap.data?[1] as? GameBottomAlert
+        }
+
+        //根据storyboard获取controller
+        let sb = UIStoryboard(name:"RoleContactDetail", bundle: nil)
+        let roleEditController = sb.instantiateViewController(withIdentifier: "RoleEditTableViewController") as! RoleEditTableViewController
+        roleEditController.hidesBottomBarWhenPushed = true
+        roleEditController.roleId = roleId
+        self.navigationController?.pushViewController(roleEditController, animated: true)
+        alert?.removeFromSuperview()
     }
     
     //处理取消
@@ -199,6 +241,10 @@ class RoleQueryTableViewController: BaseTableViewController {
     //MARKS: 计算行高
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return cellHeight
+    }
+    
+    override func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
+        return 0.1
     }
 
 }

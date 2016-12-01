@@ -28,9 +28,6 @@ class RoleEditTableViewController: BaseTableViewController,RolePickerViewDelegat
     var roleId:Int?
     var role:Role = Role()
     
-    var roleContactDetailController:RoleContactDetailTableViewController?
-    
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         createLeftBarItem()
@@ -250,11 +247,9 @@ class RoleEditTableViewController: BaseTableViewController,RolePickerViewDelegat
             
             let alertController = UIAlertController(title: RoleUtil.ROLEEDIT_SUCCESS, message: "", preferredStyle: UIAlertControllerStyle.alert)
             let okAction = UIAlertAction(title: "确定", style: UIAlertActionStyle.default, handler: { (UIAlertAction) in
-                self.roleContactDetailController?.roleId = self.roleId
                 self.navigationController?.popViewController(animated: true)
                 //self.performSegue(withIdentifier: "toEditRolePage", sender: nil)
                 /*self.dismiss(animated: true, completion: {
-                 self.roleContactDetailController?.roleId = self.roleId
                  })*/
             })
             

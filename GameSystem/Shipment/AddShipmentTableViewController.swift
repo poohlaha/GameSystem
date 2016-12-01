@@ -30,8 +30,6 @@ class AddShipmentTableViewController: BaseTableViewController,RolePickerViewDele
     @IBOutlet weak var isBuybackBtn: UIButton!
     @IBOutlet weak var isPaymentLabel: UILabel!
     @IBOutlet weak var isBuybackLabel: UILabel!
-    
-    var parentRoleDetailViewController:RoleContactDetailTableViewController?
 
     var roleId:Int? //如果有角色id表示直接行踪角色进行发货
     var role:Role?
@@ -239,7 +237,6 @@ class AddShipmentTableViewController: BaseTableViewController,RolePickerViewDele
             
             let alertController = UIAlertController(title: RoleUtil.ROLEEDIT_SUCCESS, message: "", preferredStyle: UIAlertControllerStyle.alert)
             let okAction = UIAlertAction(title: "确定", style: UIAlertActionStyle.default, handler: { (UIAlertAction) in
-                self.parentRoleDetailViewController?.roleId = self.roleId
                 self.navigationController?.popViewController(animated: true)
             })
             

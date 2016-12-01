@@ -33,7 +33,7 @@ class GameBottomAlert: BaseDrawView {
         super.init(coder: aDecoder)
     }
     
-    init(frame: CGRect,titles:[String],colors:[UIColor]?,fontSize:CGFloat,callback:@escaping (_ result:AnyObject,_ this:AnyObject)->()) {
+    init(frame: CGRect,titles:[String],colors:[UIColor]?,fontSize:CGFloat) {
         //MARKS: 初始化数据
         if fontSize > 0 {
             self.fontSize = fontSize
@@ -78,10 +78,10 @@ class GameBottomAlert: BaseDrawView {
         //设置背景
         self.backgroundColor = UIColor(patternImage: UIImage(named: "bg")!)
         //self.alpha = 0.8
-        initLayoutSubviews(callback:callback)
+        initLayoutSubviews()
     }
     
-    func initLayoutSubviews(callback:(_ result:AnyObject,_ this:AnyObject)->()){
+    func initLayoutSubviews(){
         
         if titles.count <= 1 {
             return
@@ -143,7 +143,7 @@ class GameBottomAlert: BaseDrawView {
             i += 1
         }
 
-        callback(self.views as AnyObject,self)
+        
     }
     
     override func layoutSubviews() {

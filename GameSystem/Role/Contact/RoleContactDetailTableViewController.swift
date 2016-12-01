@@ -131,7 +131,6 @@ class RoleContactDetailTableViewController: BaseTableViewController {
     //MARKS :跳转到下一个页面传值(手动)
     func prepareDetailForData(destinationController:RoleEditTableViewController,roleId:Int?){
         destinationController.roleId = roleId ?? 0
-        destinationController.roleContactDetailController = self
     }
     
     //发货事件
@@ -142,8 +141,6 @@ class RoleContactDetailTableViewController: BaseTableViewController {
         
         addShipmentTableViewController.hidesBottomBarWhenPushed = true
         addShipmentTableViewController.roleId = self.roleId
-        addShipmentTableViewController.parentRoleDetailViewController = self
-        
         self.navigationController?.pushViewController(addShipmentTableViewController, animated: true)
     }
 }

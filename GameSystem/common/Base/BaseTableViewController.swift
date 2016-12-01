@@ -49,10 +49,8 @@ class BaseTableViewController: UITableViewController {
     }
 
     
-    func createCustomAlert(titles:[String],colors:[UIColor],callback:@escaping (_ result:AnyObject,_ this:AnyObject)->()) -> GameBottomAlert{
-        return GameBottomAlert(frame: CGRect(x:0,y:-1,width:UIScreen.main.bounds.width,height:0), titles: titles,colors: colors,fontSize: 0) { (result,this) in
-            callback(result,this)
-        }
+    func createCustomAlert(titles:[String],colors:[UIColor]) -> GameBottomAlert{
+        return GameBottomAlert(frame: CGRect(x:0,y:-1,width:UIScreen.main.bounds.width,height:0), titles: titles,colors: colors,fontSize: 0)
     }
     
     func createLeftBarItem(){
