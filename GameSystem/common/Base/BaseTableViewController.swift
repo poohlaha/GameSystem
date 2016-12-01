@@ -15,6 +15,8 @@ class BaseTableViewController: UITableViewController {
     //加载条
     var loadingView:Loading?
     
+    var bottomConstraintConstant:CGFloat?
+    
     //取消点击事件
     func setCellStyleNone(){
         for i in 0...tableView.numberOfSections - 1 {
@@ -103,11 +105,90 @@ class BaseTableViewController: UITableViewController {
         
     }
     
+    override func viewDidDisappear(_ animated: Bool) {
+        removeKeyboardEvent()
+    }
+    
     //调整section距离,0.1时为最小
     override func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
         return 20
     }
     
+    func removeKeyboardEvent(){
+        NotificationCenter.default.removeObserver(self, name: NSNotification.Name.UIKeyboardWillShow, object: nil)
+        NotificationCenter.default.removeObserver(self, name: NSNotification.Name.UIKeyboardWillHide, object: nil)
+        NotificationCenter.default.removeObserver(self, name:NSNotification.Name.UIKeyboardDidShow, object: nil)
+        NotificationCenter.default.removeObserver(self, name:NSNotification.Name.UIKeyboardDidHide, object: nil)
+    }
+    
+    //添加键盘通知
+    func addKeyboardEvent(){
+        NotificationCenter.default.addObserver(self, selector: #selector(BaseTableViewController.keyboardWillShow), name: NSNotification.Name.UIKeyboardWillShow, object: nil)
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(BaseTableViewController.keyboardWillHide), name: NSNotification.Name.UIKeyboardWillHide, object: nil)
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(BaseTableViewController.keyboardDidShow), name:NSNotification.Name.UIKeyboardDidShow, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(BaseTableViewController.keyboardDidHide), name:NSNotification.Name.UIKeyboardDidHide, object: nil)
+    }
+    
+    var keyBoardHeight:CGFloat = 120
+    var isKeyBoardShow:Bool = false
+    /**
+     *键盘改变,防止键盘遮挡输入框
+     */
+    func keyboardWillShow(notification: NSNotification) {
+        let userInfo = notification.userInfo
+        let value = userInfo?[UIKeyboardFrameEndUserInfoKey] as? NSValue
+        let duration = userInfo?[UIKeyboardAnimationDurationUserInfoKey] as? Double
+        let curve = userInfo?[UIKeyboardAnimationCurveUserInfoKey] as? UInt
+        let frame = value?.cgRectValue
+       
+        let keyboardinfo = notification.userInfo![UIKeyboardFrameBeginUserInfoKey] as? NSValue
+        let keyboardheight:CGFloat = keyboardinfo!.cgRectValue.size.height
+        
+        let selfFrame = self.tableView.frame
+        
+        if self.isKeyBoardShow == true { return }
+        
+        //改变下约束
+        self.tableView.frame = CGRect(x: selfFrame.origin.x, y: selfFrame.origin.y - keyboardheight, width: selfFrame.width, height: selfFrame.height + keyboardheight)
+        UIView.animate(withDuration: duration!, delay: 0.0,
+                                       options: UIViewAnimationOptions(rawValue: curve!), animations: {
+                                        _ in
+                                        self.view.layoutIfNeeded()
+        }, completion: nil)
+    }
+    
+    func keyboardWillHide(notification: NSNotification) {
+        let userInfo = notification.userInfo
+        let value = userInfo?[UIKeyboardFrameEndUserInfoKey] as? NSValue
+        let duration = userInfo?[UIKeyboardAnimationDurationUserInfoKey] as? Double
+        let curve = userInfo?[UIKeyboardAnimationCurveUserInfoKey] as? UInt
+        let selfFrame = self.tableView.frame
+        if self.isKeyBoardShow == false { return }
+        
+        //改变下约束
+        self.tableView.frame = CGRect(x: selfFrame.origin.x, y: 0, width: selfFrame.width, height: selfFrame.height)
+        UIView.animate(withDuration: duration!, delay: 0.0,
+                       options: UIViewAnimationOptions(rawValue: curve!), animations: {
+                        _ in
+                        
+                        self.view.layoutIfNeeded()
+            }, completion: nil)
+    }
+    
+    func keyboardDidShow(notification: NSNotification){
+        print("键盘已经弹出")
+        self.isKeyBoardShow = true
+    }
+    
+    
+    func keyboardDidHide(notification: NSNotification){
+        print("键盘已经收回")
+        self.isKeyBoardShow = false
+    }
+    
+
     //设置Section字体大小
    /* override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         let view = UIView()

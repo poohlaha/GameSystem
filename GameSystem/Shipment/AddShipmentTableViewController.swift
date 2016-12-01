@@ -53,6 +53,8 @@ class AddShipmentTableViewController: BaseTableViewController,RolePickerViewDele
         isPaymentBtn.contentHorizontalAlignment = .left
         //居左显示
         isBuybackBtn.contentHorizontalAlignment = .left
+        
+        addKeyboardEvent()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -82,6 +84,7 @@ class AddShipmentTableViewController: BaseTableViewController,RolePickerViewDele
     
     //是否付款点击事件
     func isPaymentBtnClick() {
+        reginKeyboard()
         self.isPaymentPickerView = createPickerView(pickerData: ConstantUtil.isRolePaymentData)
         self.isPaymentPickerView?.viewName = "isPaymentPickerView"
         //设置默认选中否
@@ -90,6 +93,7 @@ class AddShipmentTableViewController: BaseTableViewController,RolePickerViewDele
     
     //是否买回点击事件
     func isBuybackBtnClick(){
+        reginKeyboard()
         self.isBuybackPickerView = createPickerView(pickerData: ConstantUtil.isRoleBuybackData)
         self.isBuybackPickerView?.viewName = "isBuybackPickerView"
         //设置默认选中否
@@ -165,7 +169,19 @@ class AddShipmentTableViewController: BaseTableViewController,RolePickerViewDele
         addShipment()
     }
     
+    //取消键盘
+    func reginKeyboard(){
+        self.gameTextField.resignFirstResponder()
+        self.gameAccountTextField.resignFirstResponder()
+        self.roleTextField.resignFirstResponder()
+        self.consigneeTextField.resignFirstResponder()
+        self.cargoTextField.resignFirstResponder()
+        self.shipCurrencyTextField.resignFirstResponder()
+        self.buyBackCurrencyTextField.resignFirstResponder()
+    }
+    
     func addShipment(){
+        reginKeyboard()
         let shipment = Shipment()
         let role = Role()
         if self.roleId != nil {

@@ -73,6 +73,8 @@ class RoleEditTableViewController: BaseTableViewController,RolePickerViewDelegat
     
     //是否可首充点击事件
     func isRoleRechargeBtnClick() {
+        resignKeyBoard()
+        
         let rolePickerView = createRolePickerView()
         rolePickerView.rolePickerViewDelegate = self
         
@@ -80,6 +82,13 @@ class RoleEditTableViewController: BaseTableViewController,RolePickerViewDelegat
         rolePickerView.pickerView?.selectRow(role.isRoleRecharge ?? 0, inComponent: 0, animated: true)
         let controller = self.parent
         controller?.view.addSubview(rolePickerView)
+    }
+    
+    //取消键盘
+    func resignKeyBoard(){
+        self.currencyTextField.resignFirstResponder()
+        self.roleLevelTextField.resignFirstResponder()
+        self.roleNameTextField.resignFirstResponder()
     }
     
     //游戏联动返回函数
@@ -95,6 +104,7 @@ class RoleEditTableViewController: BaseTableViewController,RolePickerViewDelegat
 
     //游戏账号点击事件
     func gameAccountBtnClick(){
+        resignKeyBoard()
         let gameId = Int(gameIdLabel.text!)
         let gameAccountId = Int(gameAccountIdLabel.text!)
         let gameAccountRoleView = createGameAccountRoleView(gameSelectedData: gameId,gameAccountSelectedData:gameAccountId,roleSelectedData:nil)
@@ -170,6 +180,11 @@ class RoleEditTableViewController: BaseTableViewController,RolePickerViewDelegat
     
     //修改角色信息
     func updateRole(){
+        //所有textfield回收键盘
+        roleNameTextField.resignFirstResponder()
+        roleLevelTextField.resignFirstResponder()
+        currencyTextField.resignFirstResponder()
+        
         let role = Role()
         role.id = Int(roleIdLabel.text!)
         
