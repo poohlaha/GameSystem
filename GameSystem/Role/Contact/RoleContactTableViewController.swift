@@ -71,6 +71,7 @@ class RoleContactTableViewController: BaseTableViewController {
         self.tableView.reloadData()
         
         initTableIndex()
+        addFooter()
     }
     
     //MARKS: Init tableview index
@@ -156,7 +157,6 @@ class RoleContactTableViewController: BaseTableViewController {
         }
         
         addHeader()
-        addFooter()
         if self.tableViewIndex != nil {
             self.tableViewIndex?.isHidden = false
         }

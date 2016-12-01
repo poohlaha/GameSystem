@@ -12,6 +12,10 @@ class ShipmentTableViewController: BaseTableViewController {
 
     @IBOutlet weak var addShipmentBtn: UIBarButtonItem!
     
+    var totalList:[Shipment] = Array<Shipment>()
+    
+    let cellHeight:CGFloat = 80
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -24,83 +28,77 @@ class ShipmentTableViewController: BaseTableViewController {
         setNavigationBarProperties(navigationBar: self.navigationController?.navigationBar)
     }
     
-    
-    
-    @IBAction func addShipment(_ sender: AnyObject) {
-        
+    //初始化数据
+    func initData(){
+        self.createLoadingView()
+        startRequestTimer(info:nil,selector: #selector(ShipmentTableViewController.loadAllShipmentsList))
     }
-   
+    
+    //加载列表
+    func loadAllShipmentsList(timer:Timer){
+        self.totalList = ShipmentUtil.loadShipmentList(params: nil,callback: {
+            self.removeLoadingView()
+        })
+        
+        self.tableView.reloadData()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        initData()
+    }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
     }
-
+    override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        return 0.1
+    }
+    
+    
     // MARK: - Table view data source
-
+    
     override func numberOfSections(in tableView: UITableView) -> Int {
-        // #warning Incomplete implementation, return the number of sections
-        return 0
+        return 1
     }
-
+    
+    override func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
+        return 0.1
+    }
+    
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        // #warning Incomplete implementation, return the number of rows
-        return 0
+        return totalList.count
     }
-
-    /*
+    
+    
+    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return  cellHeight
+    }
+    
+    
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "reuseIdentifier", for: indexPath)
-
-        // Configure the cell...
-
+        //let cell = tableView.dequeueReusableCell(withIdentifier: "reuseIdentifier", for: indexPath)
+        let cell = ShipmentQueryTableViewCell(style: .default, reuseIdentifier: "Cell\(indexPath.section)\(indexPath.row)",cellHeight:self.cellHeight)
+        
+        //角色
+        let shipment:Shipment = totalList[indexPath.row]
+        let roleNameLabel:UILabel = ComponentUtil.createLabel(rect: CGRect(x:0,y:0,width:cell.roleView!.frame.width,height:cell.roleView!.frame.height), content: shipment.role!.roleName!, color: UIColor.black, textAlignment: .left, background: UIColor.clear, font:cell.roleViewLabelFont)
+        cell.roleView?.addSubview(roleNameLabel)
+        
+        //发货游戏币
+        let shipmentCurrencyLabel:UILabel = ComponentUtil.createLabel(rect: CGRect(x:0,y:0,width:cell.shipmentCurrencyView!.frame.width,height:cell.shipmentCurrencyView!.frame.height), content: "\(shipment.shipCurrency!)", color: cell.shipmentCurrencyBoldColor, textAlignment: .left, background: UIColor.clear, font:cell.viewLabelFontBold)
+        cell.shipmentCurrencyView?.addSubview(shipmentCurrencyLabel)
+        
+        //货物
+        let cargoLabel:UILabel = ComponentUtil.createLabel(rect: CGRect(x:0,y:0,width:cell.cargoView!.frame.width,height:cell.cargoView!.frame.height), content: shipment.cargo!, color: cell.cargoBoldColor, textAlignment: .left, background: UIColor.clear, font:cell.cargoFontBold)
+        cell.cargoView?.addSubview(cargoLabel)
+        
+        let shipMoneyLabel = ComponentUtil.createLabel(rect: CGRect(x:0,y:0,width:cell.shipMoneyView!.frame.width,height:cell.shipMoneyView!.frame.height), content: "\(shipment.shipMoney!)", color: cell.shipMoneyBoldColor, textAlignment: .left, background: UIColor.clear, font:cell.viewLabelFontBold)
+        cell.shipMoneyView?.addSubview(shipMoneyLabel)
+        
+        //日期,先取最后更新时间,如果没有则取创建时间
+        let dateLabelText:String = shipment.lastUpdateDateString!
+        let dateLabel:UILabel = ComponentUtil.createLabel(rect: CGRect(x:0,y:0,width:cell.dateView!.frame.width,height:cell.dateView!.frame.height), content: dateLabelText, color: cell.viewLabelColor, textAlignment: .right, background: UIColor.clear, font:cell.dateLabelFont!)
+        cell.dateView?.addSubview(dateLabel)
         return cell
     }
-    */
-
-    /*
-    // Override to support conditional editing of the table view.
-    override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
-        // Return false if you do not want the specified item to be editable.
-        return true
-    }
-    */
-
-    /*
-    // Override to support editing the table view.
-    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
-        if editingStyle == .delete {
-            // Delete the row from the data source
-            tableView.deleteRows(at: [indexPath], with: .fade)
-        } else if editingStyle == .insert {
-            // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-        }    
-    }
-    */
-
-    /*
-    // Override to support rearranging the table view.
-    override func tableView(_ tableView: UITableView, moveRowAt fromIndexPath: IndexPath, to: IndexPath) {
-
-    }
-    */
-
-    /*
-    // Override to support conditional rearranging of the table view.
-    override func tableView(_ tableView: UITableView, canMoveRowAt indexPath: IndexPath) -> Bool {
-        // Return false if you do not want the item to be re-orderable.
-        return true
-    }
-    */
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
 }

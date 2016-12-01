@@ -10,6 +10,7 @@
 		7600BDD81DE5E7C9000F7985 /* NavigationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7600BDD71DE5E7C9000F7985 /* NavigationView.swift */; };
 		7600BDDD1DE5EE73000F7985 /* BaseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7600BDDC1DE5EE73000F7985 /* BaseView.swift */; };
 		7618524F1DEC5FA500C0CC94 /* GameAccountRoleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7618524E1DEC5FA500C0CC94 /* GameAccountRoleView.swift */; };
+		7621BCD51DF0700F0010A28A /* ShipmentQueryTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7621BCD41DF0700F0010A28A /* ShipmentQueryTableViewCell.swift */; };
 		7654B49E1DEBC6DA00527B79 /* Game.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7654B49D1DEBC6DA00527B79 /* Game.swift */; };
 		7654B4A01DEBCEC000527B79 /* GameAccount.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7654B49F1DEBCEC000527B79 /* GameAccount.swift */; };
 		7654B4A31DEBD56800527B79 /* GameAccountRolePickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7654B4A21DEBD56800527B79 /* GameAccountRolePickerView.swift */; };
@@ -83,6 +84,7 @@
 		7600BDD71DE5E7C9000F7985 /* NavigationView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NavigationView.swift; sourceTree = "<group>"; };
 		7600BDDC1DE5EE73000F7985 /* BaseView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseView.swift; sourceTree = "<group>"; };
 		7618524E1DEC5FA500C0CC94 /* GameAccountRoleView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameAccountRoleView.swift; sourceTree = "<group>"; };
+		7621BCD41DF0700F0010A28A /* ShipmentQueryTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShipmentQueryTableViewCell.swift; sourceTree = "<group>"; };
 		7654B49D1DEBC6DA00527B79 /* Game.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Game.swift; sourceTree = "<group>"; };
 		7654B49F1DEBCEC000527B79 /* GameAccount.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameAccount.swift; sourceTree = "<group>"; };
 		7654B4A21DEBD56800527B79 /* GameAccountRolePickerView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameAccountRolePickerView.swift; sourceTree = "<group>"; };
@@ -262,8 +264,9 @@
 			isa = PBXGroup;
 			children = (
 				765E74361DE14EED005A9B63 /* ShipmentTableViewController.swift */,
-				765E74381DE14F61005A9B63 /* shipment.storyboard */,
 				76F507531DEEDB5100CEE6C7 /* AddShipmentTableViewController.swift */,
+				765E74381DE14F61005A9B63 /* shipment.storyboard */,
+				7621BCD41DF0700F0010A28A /* ShipmentQueryTableViewCell.swift */,
 			);
 			path = Shipment;
 			sourceTree = "<group>";
@@ -606,6 +609,7 @@
 				76DB90561DE49B07001FA5FD /* HttpGameClient.swift in Sources */,
 				7699D3A01DE6C91200E0F6B2 /* LoadingView.swift in Sources */,
 				765E74371DE14EED005A9B63 /* ShipmentTableViewController.swift in Sources */,
+				7621BCD51DF0700F0010A28A /* ShipmentQueryTableViewCell.swift in Sources */,
 				7682A22A1DE48B35001CDA47 /* MainBgView.swift in Sources */,
 				7618524F1DEC5FA500C0CC94 /* GameAccountRoleView.swift in Sources */,
 				765938551DD3376E000740D5 /* GameSystem.xcdatamodeld in Sources */,

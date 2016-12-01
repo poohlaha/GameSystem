@@ -41,6 +41,8 @@ class ShipmentUtil {
         shipment.shipName = data["shipName"] as? String ?? ""
         shipment.isPayment = data["isPayment"] as? Int ?? 1
         shipment.isBuyback = data["isBuyback"] as? Int ?? 1
+        shipment.cargo = data["cargo"] as? String ?? ""
+        shipment.shipMoney = data["shipMoney"] as? Float64 ?? 0.0
         shipment.createDateString = data["createDateString"] as? String ?? ""
         shipment.isDeleted = data["isDeleted"] as? Int ?? 0
         shipment.lastUpdateDateString = data["lastUpdateDateString"] as? String ?? ""
@@ -89,6 +91,24 @@ class ShipmentUtil {
         
         return str
     }
+    
+    //加载角色列表
+    static func loadShipmentList(params:Dictionary<String,Any>?,callback:@escaping ()->()) -> Array<Shipment>{
+        var totalList:[Shipment] = Array<Shipment>()
+        BaseUtil.loadList(url: DBConstantUtil.queryShipmentPageList, params: params) { (dataList) in
+            for data in dataList {
+                if (data as AnyObject).isEqual(nil) { continue }
+                let _data = data as! NSDictionary
+                let role = anaylsShipment(data: _data)
+                totalList.append(role)
+            }
+            
+            callback()
+        }
+        
+        return totalList
+    }
+    
 
 
 }

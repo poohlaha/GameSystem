@@ -32,14 +32,10 @@
                     <navigationItem key="navigationItem" title=" 出货管理" id="aqD-BD-1D1">
                         <barButtonItem key="rightBarButtonItem" systemItem="add" id="d8O-4p-jza">
                             <connections>
-                                <action selector="addShipment:" destination="dJy-9B-dQg" id="sFZ-Yw-nz2"/>
-                                <segue destination="Szj-mU-avI" kind="show" id="whQ-uU-fgm"/>
+                                <segue destination="Szj-mU-avI" kind="show" id="sJ1-z3-CHU"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
-                    <connections>
-                        <outlet property="addShipmentBtn" destination="d8O-4p-jza" id="Nog-df-dQe"/>
-                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="9y4-R9-1v1" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -379,7 +375,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="CdR-Kb-MdD" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1153" y="91"/>
+            <point key="canvasLocation" x="908" y="91"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="Nlp-hZ-GCs">
