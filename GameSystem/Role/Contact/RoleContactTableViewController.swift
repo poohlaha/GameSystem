@@ -45,11 +45,17 @@ class RoleContactTableViewController: BaseTableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.navigationController?.isNavigationBarHidden = false
+        createLeftBarItem()
+        setNavigationBarProperties(navigationBar: self.navigationController?.navigationBar)
     }
     
     func initFrame(){
         self.createLoadingView()
         startRequestTimer(info:nil,selector: #selector(RoleContactTableViewController.loadAllRolesList))
+    }
+    
+    override func back() {
+        self.getRoleManageTabBar()?.navigationController?.popViewController(animated: true)
     }
     
     //加载所有角色列表

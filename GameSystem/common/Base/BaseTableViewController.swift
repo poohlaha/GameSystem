@@ -17,6 +17,21 @@ class BaseTableViewController: UITableViewController {
     
     var bottomConstraintConstant:CGFloat?
     
+    //设置导航条属性
+    func setNavigationBarProperties(navigationBar:UINavigationBar?) {
+        //MARKS: 设置导航行背景及字体颜色
+        //navigationBar?.barTintColor = ComponentUtil.fontColorGold
+        //navigationBar?.tintColor = ComponentUtil.fontColorGreen
+        
+        let navigationTitleAttribute : NSDictionary = NSDictionary(object: ComponentUtil.fontColorGold,forKey: NSForegroundColorAttributeName as NSCopying)
+        navigationBar?.titleTextAttributes = navigationTitleAttribute as? [String : AnyObject]
+    }
+    
+    //获取TabBar
+    func getRoleManageTabBar() -> RoleManageTabBarController?{
+        return self.parent?.navigationController?.topViewController as? RoleManageTabBarController
+    }
+    
     //取消点击事件
     func setCellStyleNone(){
         for i in 0...tableView.numberOfSections - 1 {
@@ -26,7 +41,6 @@ class BaseTableViewController: UITableViewController {
                 cell?.selectionStyle = .none
             }
         }
-        
     }
 
     //MARKS: 创建加载View
@@ -61,6 +75,7 @@ class BaseTableViewController: UITableViewController {
     
     func back(){
         self.navigationController?.popViewController(animated: true)
+        //self.getRoleManageTabBar()?.navigationController?.popViewController(animated: true)
     }
     
     //请求定时器

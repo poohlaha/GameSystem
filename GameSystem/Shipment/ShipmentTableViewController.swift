@@ -8,14 +8,23 @@
 
 import UIKit
 
-class ShipmentTableViewController: UITableViewController {
+class ShipmentTableViewController: BaseTableViewController {
 
     @IBOutlet weak var addShipmentBtn: UIBarButtonItem!
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
+        initFrame()
     }
+    
+    func initFrame(){
+        self.navigationController?.isNavigationBarHidden = false
+        createLeftBarItem()
+        setNavigationBarProperties(navigationBar: self.navigationController?.navigationBar)
+    }
+    
+    
     
     @IBAction func addShipment(_ sender: AnyObject) {
         

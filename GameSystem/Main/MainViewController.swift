@@ -206,15 +206,10 @@ class MainViewController: UIViewController {
     }
     
     func roleManageViewTap(tap:GameUITapGestureRecognizer){
-         //let roleStoryboard = UIStoryboard(name:"role", bundle: nil)
-         //let roleManageTabBarController = roleStoryboard.instantiateViewController(withIdentifier: "RoleManageTabBarController") as! RoleManageTabBarController
-         //self.navigationController?.pushViewController(roleManageTabBarController, animated: true)
-
-        
-        let roleManageController = RoleManageTabBarController()
-        roleManageController.navigationItem.leftBarButtonItem = UIBarButtonItem(image: ComponentUtil.backImage, style: .done, target: self, action: #selector(MainViewController.back))
-        self.navigationController?.pushViewController(roleManageController, animated: true)
-        self.navigationController?.isNavigationBarHidden = false
+        //根据storyboard获取controller
+        let sb = UIStoryboard(name:"role", bundle: nil)
+        let roleManageTabBarController = sb.instantiateViewController(withIdentifier: "RoleManageTabBar") as! UITabBarController
+        self.navigationController?.pushViewController(roleManageTabBarController, animated: true)
     }
     
     func back(){
@@ -222,10 +217,9 @@ class MainViewController: UIViewController {
     }
    
     func shipmentManageViewTap(tap:GameUITapGestureRecognizer){
-       
-        /*let shipmentSB = UIStoryboard(name:"shipment", bundle: nil)
+        let shipmentSB = UIStoryboard(name:"shipment", bundle: nil)
         let shipmentManageController = shipmentSB.instantiateViewController(withIdentifier: "ShipmentTableViewController") as! ShipmentTableViewController
-        self.navigationController?.pushViewController(shipmentManageController, animated: true)*/
+        self.navigationController?.pushViewController(shipmentManageController, animated: true)
 
     }
     

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11201" systemVersion="16A323" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11201" systemVersion="16A323" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="vhL-Lg-xlT">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11161"/>
@@ -19,7 +19,7 @@
                                 <rect key="frame" x="0.0" y="92" width="375" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="h32-xL-WUU" id="aMN-jG-4hE">
-                                    <frame key="frameInset" width="375" height="43.5"/>
+                                    <frame key="frameInset" width="375" height="43"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                 </tableViewCellContentView>
                             </tableViewCell>
@@ -33,6 +33,7 @@
                         <barButtonItem key="rightBarButtonItem" systemItem="add" id="d8O-4p-jza">
                             <connections>
                                 <action selector="addShipment:" destination="dJy-9B-dQg" id="sFZ-Yw-nz2"/>
+                                <segue destination="Szj-mU-avI" kind="show" id="whQ-uU-fgm"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
@@ -56,10 +57,10 @@
                             <tableViewSection headerTitle="游戏名称" id="Muo-7D-JiJ">
                                 <cells>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" rowHeight="40" id="Jpt-br-Ik1">
-                                        <rect key="frame" x="0.0" y="119.5" width="375" height="40"/>
+                                        <rect key="frame" x="0.0" y="120" width="375" height="40"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Jpt-br-Ik1" id="C1k-t1-KTB">
-                                            <frame key="frameInset" width="375" height="39.5"/>
+                                            <frame key="frameInset" width="375" height="39"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="natural" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="lFs-4g-gLb">
@@ -97,10 +98,10 @@
                             <tableViewSection headerTitle="所属账号" id="4DV-fJ-hXL">
                                 <cells>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" rowHeight="40" id="Bwo-X7-xd7">
-                                        <rect key="frame" x="0.0" y="215.5" width="375" height="40"/>
+                                        <rect key="frame" x="0.0" y="217" width="375" height="40"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Bwo-X7-xd7" id="4RP-uN-aZX">
-                                            <frame key="frameInset" width="375" height="39.5"/>
+                                            <frame key="frameInset" width="375" height="39"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="natural" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="6yB-qF-DCO">
@@ -138,10 +139,10 @@
                             <tableViewSection headerTitle="角色名称" id="67l-4m-HZl">
                                 <cells>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" rowHeight="40" id="oFc-8N-icn">
-                                        <rect key="frame" x="0.0" y="311.5" width="375" height="40"/>
+                                        <rect key="frame" x="0.0" y="314" width="375" height="40"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="oFc-8N-icn" id="eAn-q7-bBh">
-                                            <frame key="frameInset" width="375" height="39.5"/>
+                                            <frame key="frameInset" width="375" height="39"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="natural" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="XeU-A8-fUp">
@@ -179,10 +180,10 @@
                             <tableViewSection headerTitle="收货人" id="KYh-H1-bW5">
                                 <cells>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" rowHeight="40" id="A9d-50-kdm">
-                                        <rect key="frame" x="0.0" y="407.5" width="375" height="40"/>
+                                        <rect key="frame" x="0.0" y="411" width="375" height="40"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="A9d-50-kdm" id="Bm5-J9-Oth">
-                                            <frame key="frameInset" width="375" height="39.5"/>
+                                            <frame key="frameInset" width="375" height="39"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="natural" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="mRj-cm-zDT">
@@ -204,10 +205,10 @@
                             <tableViewSection headerTitle="货物" id="4qM-rz-BWR">
                                 <cells>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" rowHeight="40" id="D11-90-vSE">
-                                        <rect key="frame" x="0.0" y="503.5" width="375" height="40"/>
+                                        <rect key="frame" x="0.0" y="508" width="375" height="40"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="D11-90-vSE" id="lQd-7E-k2q">
-                                            <frame key="frameInset" width="375" height="39.5"/>
+                                            <frame key="frameInset" width="375" height="39"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="natural" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="j8c-25-46b">
@@ -229,10 +230,10 @@
                             <tableViewSection headerTitle="出货游戏币数" id="cQf-Bu-cNQ">
                                 <cells>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" rowHeight="40" id="VnU-lq-ooJ">
-                                        <rect key="frame" x="0.0" y="599.5" width="375" height="40"/>
+                                        <rect key="frame" x="0.0" y="605" width="375" height="40"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="VnU-lq-ooJ" id="y1c-0L-fIv">
-                                            <frame key="frameInset" width="375" height="39.5"/>
+                                            <frame key="frameInset" width="375" height="39"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="natural" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="43Y-bV-amL">
@@ -254,10 +255,10 @@
                             <tableViewSection headerTitle="买回游戏币数" id="I8R-66-SuK">
                                 <cells>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" rowHeight="40" id="ohc-aP-Kwd">
-                                        <rect key="frame" x="0.0" y="695.5" width="375" height="40"/>
+                                        <rect key="frame" x="0.0" y="702" width="375" height="40"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="ohc-aP-Kwd" id="NK7-OO-umy">
-                                            <frame key="frameInset" width="375" height="39.5"/>
+                                            <frame key="frameInset" width="375" height="39"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="natural" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="zbj-sc-Qkg">
@@ -279,10 +280,10 @@
                             <tableViewSection headerTitle="是否付款" id="1rK-yS-pJK">
                                 <cells>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" rowHeight="40" id="yyH-bf-D0b">
-                                        <rect key="frame" x="0.0" y="791.5" width="375" height="40"/>
+                                        <rect key="frame" x="0.0" y="799" width="375" height="40"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="yyH-bf-D0b" id="Xlv-EY-dYM">
-                                            <frame key="frameInset" width="375" height="39.5"/>
+                                            <frame key="frameInset" width="375" height="39"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="L0Q-7I-ljc">
@@ -312,10 +313,10 @@
                             <tableViewSection headerTitle="是否买回" id="D41-m2-jr4">
                                 <cells>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" rowHeight="40" id="DCq-us-llb">
-                                        <rect key="frame" x="0.0" y="887.5" width="375" height="40"/>
+                                        <rect key="frame" x="0.0" y="896" width="375" height="40"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="DCq-us-llb" id="1MC-dc-QSX">
-                                            <frame key="frameInset" width="375" height="39.5"/>
+                                            <frame key="frameInset" width="375" height="39"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jBj-D1-sol">
@@ -383,7 +384,7 @@
         <!--Navigation Controller-->
         <scene sceneID="Nlp-hZ-GCs">
             <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="vhL-Lg-xlT" sceneMemberID="viewController">
+                <navigationController storyboardIdentifier="ShipmentNav" automaticallyAdjustsScrollViewInsets="NO" id="vhL-Lg-xlT" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="EhO-Io-3cw">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>

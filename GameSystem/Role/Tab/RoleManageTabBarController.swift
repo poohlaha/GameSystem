@@ -15,7 +15,8 @@ class RoleManageTabBarController: UITabBarController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-       createSubTabViewControllers()
+       //self.navigationController?.isNavigationBarHidden = true
+       //createSubTabViewControllers()
        configTabBar()
     }
 
@@ -26,16 +27,20 @@ class RoleManageTabBarController: UITabBarController {
     
     //创建TabViewController
     func createSubTabViewControllers(){
-        let roleQueryController  = RoleQueryTableViewController()
+        let sb = UIStoryboard(name:"role", bundle: nil)
+        let roleQueryTableViewController = sb.instantiateViewController(withIdentifier: "RoleQueryTableViewController") as! RoleQueryTableViewController
+        
+        //let roleQueryController  = RoleQueryTableViewController()
         let roleQueryItem:UITabBarItem = UITabBarItem(title: itemTexts[0], image: ConstantUtil.messageTabImages[0], selectedImage: ConstantUtil.messageTabImages[1])
-        roleQueryController.tabBarItem = roleQueryItem
+        roleQueryTableViewController.tabBarItem = roleQueryItem
         
-        let roleContactController = RoleContactTableViewController()
+        let roleContactTableViewController = sb.instantiateViewController(withIdentifier: "RoleContactTableViewController") as! RoleContactTableViewController
+        //let roleContactController = RoleContactTableViewController()
         let roleManageItem:UITabBarItem = UITabBarItem (title: itemTexts[1], image: ConstantUtil.roleManageTabImages[0], selectedImage: ConstantUtil.roleManageTabImages[1])
-        roleContactController.tabBarItem = roleManageItem
+        roleContactTableViewController.tabBarItem = roleManageItem
         
         
-        let tabArray = [roleQueryController,roleContactController]
+        let tabArray = [roleQueryTableViewController,roleContactTableViewController]
         self.viewControllers = tabArray
     }
     

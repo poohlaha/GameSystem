@@ -20,16 +20,25 @@ class RoleQueryTableViewController: BaseTableViewController {
         
         //tableView.style = .grouped
         //BaseView.setNavigationBarProperties(navigationBar: (navigationBar!))
-       
+        createLeftBarItem()
+        
+    }
+    
+    override func back() {
+        self.getRoleManageTabBar()?.navigationController?.popViewController(animated: true)
     }
     
     func initFrame(){
         self.createLoadingView()
+        setNavigationBarProperties(navigationBar: self.navigationController?.navigationBar)
         startRequestTimer(info:nil,selector: #selector(RoleQueryTableViewController.loadData))
     }
     
     override func viewWillAppear(_ animated: Bool) {
         initFrame()
+        if self.alert != nil {
+            self.alert?.removeFromSuperview()
+        }
     }
 
     //加载数据,查询所有可发货的列表
@@ -124,16 +133,19 @@ class RoleQueryTableViewController: BaseTableViewController {
         return cell
     }
     
+    var alert:GameBottomAlert?
+    
     func handleLongpressGesture(gestrue: GameUILongPressGestureRecognizer) {
         if gestrue.state == UIGestureRecognizerState.began{
             if gestrue.data != nil && (gestrue.data?.count)! > 0 {
                 let role:Role = gestrue.data![0] as! Role
                 //self.parent?.view.bringSubview(toFront: customAlert!)
                 
-                let alert = self.createCustomAlert(titles: self.titles,colors:self.colors)
-                let controller = self.parent
-                controller?.view.addSubview(alert)
-                self.alertEvents(views: alert.views,role:role,alert: alert)
+                self.alert = self.createCustomAlert(titles: self.titles,colors:self.colors)
+                //let controller = self.parent
+                //controller?.view.addSubview(self.alert!)
+                getRoleManageTabBar()?.parent?.view.addSubview(self.alert!)
+                self.alertEvents(views: (self.alert?.views)!,role:role,alert: self.alert!)
             }
         }
     }
