@@ -73,11 +73,23 @@ class GameUtil {
         return totalList
     }
     
-    static func anaylsGameAccountByGameId(gameId:Int,gameAccountList:[GameAccount]) -> Array<GameAccount>{
+    static func anaylsGameAccountByGameId(gameId:Int,gameAccountList:[GameAccount]?) -> Array<GameAccount>{
         var gameAccountArr:[GameAccount] = []
-        if gameId == 0 || gameAccountList.isEmpty || gameAccountList.count == 0  { return gameAccountArr}
+        if gameId == 0 { return gameAccountArr}
         
-        gameAccountArr = GameAccountUtil.queryGameAccountByGameId(gameId: gameId)
+        if gameAccountList == nil || gameAccountList?.count == 0 {
+            return GameAccountUtil.queryGameAccountByGameId(gameId: gameId)
+        } else {
+            for gameAccount in gameAccountList! {
+                if gameAccount.game?.id == nil {
+                    continue
+                }
+                
+                if gameAccount.game?.id == gameId {
+                    gameAccountArr.append(gameAccount)
+                }
+            }
+        }
         
         return gameAccountArr
     }

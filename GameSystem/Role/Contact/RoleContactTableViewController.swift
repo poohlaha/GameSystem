@@ -290,4 +290,42 @@ class RoleContactTableViewController: BaseTableViewController {
         
     }
     
+    //MARKS: 自定义向右滑动菜单
+    override func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
+        let editAction = UITableViewRowAction(style: .normal, title: "修改") { (action, indexPath) in
+            let session = self.totalList[indexPath.section]
+            let contact = session.contacts[indexPath.row] as! Role
+            
+            //根据storyboard获取controller
+            let sb = UIStoryboard(name:"RoleContactDetail", bundle: nil)
+            let roleEditController = sb.instantiateViewController(withIdentifier: "RoleEditTableViewController") as! RoleEditTableViewController
+            roleEditController.hidesBottomBarWhenPushed = true
+            roleEditController.roleId = contact.id ?? 0
+            self.navigationController?.pushViewController(roleEditController, animated: true)
+            
+            //让cell可以自动回到默认状态，所以需要退出编辑模式
+            tableView.isEditing = false
+        }
+        
+        let shipAction = UITableViewRowAction(style: .normal, title: "发货") { (action, indexPath) in
+            let session = self.totalList[indexPath.section]
+            let contact = session.contacts[indexPath.row] as! Role
+            
+            //根据storyboard获取controller
+            let sb = UIStoryboard(name:"shipment", bundle: nil)
+            let addShipmentTableViewController = sb.instantiateViewController(withIdentifier: "AddShipmentTableViewController") as! AddShipmentTableViewController
+            addShipmentTableViewController.hidesBottomBarWhenPushed = true
+            addShipmentTableViewController.roleId = contact.id
+            self.navigationController?.pushViewController(addShipmentTableViewController, animated: true)
+            
+            //让cell可以自动回到默认状态，所以需要退出编辑模式
+            tableView.isEditing = false
+        }
+        
+        editAction.backgroundColor = ComponentUtil.fontColorBlue
+        shipAction.backgroundColor = ComponentUtil.fontColorGreen
+        
+        return [editAction,shipAction]
+    }
+
 }

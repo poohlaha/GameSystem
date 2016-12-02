@@ -25,6 +25,9 @@ class GameAccountRoleView: UIView {
     private var gameSelectedData:Int?
     private var gameAccountSelectedData:Int?
     private var roleSelectedData:Int?
+    private var gameBeginSelectData:Int?
+    
+    var name:String = "gameAccountRoleView"
     
     var viewDelegate:GameAccountRoleBaseViewDelegate?
     
@@ -35,6 +38,7 @@ class GameAccountRoleView: UIView {
         self.isGameShow = (gameData.isEmpty || gameData.count == 0) ? false : true
         self.isGameAccountShow = (gameAccountData.isEmpty || gameAccountData.count == 0) ? false : true
         self.isRoleShow = (roleData.isEmpty || roleData.count == 0) ? false : true
+        self.gameBeginSelectData = gameSelectedData
         
         self.gameData = gameData
         self.gameAccountData = gameAccountData
@@ -73,9 +77,14 @@ class GameAccountRoleView: UIView {
         let eachWidth = self.frame.width / CGFloat(count)
         let height:CGFloat = (self.mainView?.frame.height)!
         
-        let game = Game();
+        let game = Game()
         if self.isGameShow {
-            self.gameView = LeftTableView(frame: CGRect(x: beginX, y: 0, width: eachWidth, height: height),data:self.gameData,selectedData:self.gameSelectedData)
+            //默认选中第一个
+            if self.gameSelectedData == nil {
+                self.gameSelectedData = self.gameData[0].id
+            }
+            
+            self.gameView = LeftTableView(frame: CGRect(x: beginX, y: 0, width: eachWidth, height: height),data:self.gameData,selectedData:self.gameSelectedData,prevData:nil)
             beginX += eachWidth
             self.mainView?.addSubview(gameView!)
             
@@ -83,17 +92,19 @@ class GameAccountRoleView: UIView {
             self.gameView?.parentView = self
             self.gameView?.eachHeight = height
             
-            game.id = self.gameSelectedData
-            
-            var gameName:String = ""
-            for g in self.gameData {
-                if g.id == self.gameSelectedData {
-                    gameName = g.gameName!
-                    break
+            if self.gameSelectedData != nil {
+                game.id = self.gameSelectedData
+                
+                var gameName:String = ""
+                for g in self.gameData {
+                    if g.id == self.gameSelectedData {
+                        gameName = g.gameName ?? ""
+                        break
+                    }
                 }
+                
+                game.gameName = gameName
             }
-            
-            game.gameName = gameName
             
             //if self.gameSelectedData != nil {
                 //let indexPath = NSIndexPath(row: 0, section: 0) as IndexPath
@@ -101,21 +112,47 @@ class GameAccountRoleView: UIView {
            // }
         }
         
+        let gameAccount = GameAccount()
         if self.isGameAccountShow {
-            self.gameAccountView = MiddleTableView(frame: CGRect(x: beginX, y: 0, width: eachWidth, height: height),data:self.gameAccountData,selectedData:self.gameAccountSelectedData)
+            self.gameAccountView = MiddleTableView(frame: CGRect(x: beginX, y: 0, width: eachWidth, height: height),data:self.gameAccountData,selectedData:self.gameAccountSelectedData,prevData:self.gameSelectedData)
             beginX += eachWidth
             self.mainView?.addSubview(gameAccountView!)
             
             self.gameView?.middelTableView = self.gameAccountView
             self.gameAccountView?.game = game
             self.gameAccountView?.parentView = self
+            
+            if self.gameAccountSelectedData != nil {
+                gameAccount.id = self.gameAccountSelectedData!
+                var gameAccountName:String = ""
+                for g in self.gameAccountData {
+                    if g.id == self.gameAccountSelectedData {
+                        gameAccountName = g.nickName ?? ""
+                        break
+                    }
+                }
+                
+                gameAccount.nickName = gameAccountName
+            }
         }
         
         
         if self.isRoleShow {
-            self.roleView = RightTableView(frame: CGRect(x: beginX, y: 0, width: eachWidth, height: height),data:self.roleData,selectedData:self.roleSelectedData)
+            let prevData:Int?
+            if self.gameBeginSelectData == nil {
+                prevData = nil
+            }else{
+                prevData = self.gameAccountSelectedData
+            }
+            self.roleView = RightTableView(frame: CGRect(x: beginX, y: 0, width: eachWidth, height: height),data:self.roleData,selectedData:self.roleSelectedData,prevData:prevData)
             beginX += eachWidth
             self.mainView?.addSubview(roleView!)
+            
+            self.gameView?.rightTableView = self.roleView
+            self.gameAccountView?.rightTableView = self.roleView
+            self.roleView?.game = game
+            self.roleView?.gameAccount = gameAccount
+            self.roleView?.parentView = self
         }
         
     }
@@ -157,13 +194,18 @@ class GameAccountRoleView: UIView {
 class LeftTableView:GameAccountRoleBaseView {
     
     var middelTableView:MiddleTableView?
+    var rightTableView:RightTableView?
     var eachWidth:CGFloat = 0
     var eachHeight:CGFloat = 0
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let cell = tableView.cellForRow(at: indexPath) as! GameAccountRoleTableViewCell
         
+        disableAllCellMark()
+        cell.accessoryType = .checkmark
+        
         //通过gameId获取账号数据
+        
         let gameId:Int = Int(cell.hiddenLabel!.text!)!
         let gameText:String = (cell.label?.text) ?? ""
         
@@ -172,16 +214,21 @@ class LeftTableView:GameAccountRoleBaseView {
         game.gameName = gameText
         
         if self.middelTableView != nil {
-            self.middelTableView?.removeFromSuperview()
-            
-           
+            //self.middelTableView?.removeFromSuperview()
             let gameAccountData:[GameAccount] = GameUtil.anaylsGameAccountByGameId(gameId: gameId, gameAccountList: (self.parentView?.gameAccountData)!)
             
-            let gameAccountView = MiddleTableView(frame: CGRect(x: eachWidth, y: 0, width: self.eachWidth, height: self.eachHeight),data:gameAccountData,selectedData:nil)
-            gameAccountView.game = game
-            self.parentView?.mainView?.addSubview(gameAccountView)
+            //let gameAccountView = MiddleTableView(frame: CGRect(x: eachWidth, y: 0, width: self.eachWidth, height: self.eachHeight),data:gameAccountData,selectedData:nil)
+            //self.parentView?.mainView?.addSubview(gameAccountView)
+            //gameAccountView.parentView = self.parentView
             
-            gameAccountView.parentView = self.parentView
+            self.middelTableView?.game = game
+            self.middelTableView?.data = gameAccountData
+            self.middelTableView?.selectedData = nil
+            self.middelTableView?.tableView?.reloadData()
+            if self.rightTableView != nil {
+                self.rightTableView?.data = []
+                self.rightTableView?.tableView?.reloadData()
+            }
         } else {
             if ((self.parentView?.viewDelegate?.gameAccountRoleBaseViewCallback) != nil) {
                 let data:NSDictionary = ["game":game]
@@ -189,8 +236,7 @@ class LeftTableView:GameAccountRoleBaseView {
             }
         }
         
-        disableAllCellMark()
-        cell.accessoryType = .checkmark
+       
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -207,11 +253,12 @@ class LeftTableView:GameAccountRoleBaseView {
         }
         
         //最后一个cell底部画线
-        if indexPath.row == data.count - 1 {
+        /*if indexPath.row == data.count - 1 {
             cell.layer.addSublayer(drawLastLine(width:cell.frame.width,height: cell.frame.height))
-        }
+        }*/
         
         cell.selectionStyle = .none
+        cell.layer.addSublayer(drawLastLine(width:self.bounds.width,height: cell.frame.height))
         
         return cell
     }
@@ -223,8 +270,30 @@ class MiddleTableView:GameAccountRoleBaseView {
     
     var game:Game?
     
+    override func initData() {
+        if self.prevData != nil {
+            var gameAccountData:[GameAccount] = []
+            if self.data.count > 0 {
+                for d in data {
+                    let _data = d as! GameAccount
+                    if _data.game != nil {
+                        if _data.game?.id! == self.prevData {
+                             gameAccountData.append(_data)
+                        }
+                       
+                    }
+                }
+                
+                self.data = gameAccountData
+            }
+        }
+    }
+    
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let cell = tableView.cellForRow(at: indexPath) as! GameAccountRoleTableViewCell
+        
+        disableAllCellMark()
+        cell.accessoryType = .checkmark
         
         let gameAccountId:Int = Int(cell.hiddenLabel!.text!)!
         let gameAccountText:String = cell.label?.text ?? ""
@@ -234,22 +303,26 @@ class MiddleTableView:GameAccountRoleBaseView {
         gameAccount.nickName = gameAccountText
         
         self.selectedData = Int(cell.hiddenLabel!.text!)!
-        disableAllCellMark()
-        cell.accessoryType = .checkmark
-        
+       
         if self.rightTableView != nil {
-            
+            let roleData:[Role] = RoleUtil.anaylsRoleByGameAccountId(gameAccountId: gameAccountId, roleList: self.parentView?.roleData)
+            self.rightTableView?.game = game
+            self.rightTableView?.gameAccount = gameAccount
+            self.rightTableView?.data = roleData
+            self.rightTableView?.selectedData = nil
+            self.rightTableView?.tableView?.reloadData()
         }else{
-            let data:NSDictionary = ["game":self.game,"gameAccount":gameAccount]
-            self.parentView?.viewDelegate?.gameAccountRoleBaseViewCallback!(data:data,view:self.parentView)
+            if ((self.parentView?.viewDelegate?.gameAccountRoleBaseViewCallback) != nil) {
+                let data:NSDictionary = ["game":self.game,"gameAccount":gameAccount]
+                self.parentView?.viewDelegate?.gameAccountRoleBaseViewCallback!(data:data,view:self.parentView)
+            }
         }
     
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        
         let cell = GameAccountRoleTableViewCell(style: .default, reuseIdentifier: "Cell\(indexPath.section)\(indexPath.row)")
-        
+
         let gameAccount:GameAccount = data[indexPath.row] as! GameAccount
         cell.label?.text = gameAccount.nickName
         cell.hiddenLabel?.text = "\(gameAccount.id!)"
@@ -260,12 +333,8 @@ class MiddleTableView:GameAccountRoleBaseView {
             }
         }
         
-        //最后一个cell底部画线
-        if indexPath.row == data.count - 1 {
-           cell.layer.addSublayer(drawLastLine(width:cell.frame.width,height: cell.frame.height))
-        }
-        
         cell.selectionStyle = .none
+        cell.layer.addSublayer(drawLastLine(width:self.bounds.width,height: cell.frame.height))
         
         return cell
     }
@@ -274,15 +343,44 @@ class MiddleTableView:GameAccountRoleBaseView {
 class RightTableView:GameAccountRoleBaseView {
     
     var gameAccount:GameAccount?
+    var game:Game?
+    
+    override func initData() {
+        if self.prevData != nil {
+            var roleData:[Role] = []
+            if self.data.count > 0 {
+                for d in data {
+                    let _data = d as! Role
+                    if _data.gameAccount != nil {
+                        if _data.gameAccount?.id! == self.prevData {
+                            roleData.append(_data)
+                        }
+                        
+                    }
+                }
+                
+                self.data = roleData
+            }
+        } else {
+            self.data = []
+        }
+    }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let cell = tableView.cellForRow(at: indexPath) as! GameAccountRoleTableViewCell
-        //let roleId:Int = Int(cell.hiddenLabel!.text!)!
-        //let roleText:String = (cell.label?.text)!
+        let roleId:Int = Int(cell.hiddenLabel!.text!)!
+        let roleName:String = (cell.label?.text)!
+        
+        let role = Role()
+        role.id = roleId
+        role.roleName = roleName
+        
+        disableAllCellMark()
+        cell.accessoryType = .checkmark
         
         if ((self.parentView?.viewDelegate?.gameAccountRoleBaseViewCallback) != nil) {
-            //var data:NSDictionary = ["game":self.game,"gameAccount":gameAccount]
-            //self.parentView?.viewDelegate?.gameAccountRoleBaseViewCallback!(data:data)
+             let data:NSDictionary = ["game":self.game,"gameAccount":gameAccount,"role":role]
+             self.parentView?.viewDelegate?.gameAccountRoleBaseViewCallback!(data:data,view:self.parentView)
         }
     }
     
@@ -300,11 +398,12 @@ class RightTableView:GameAccountRoleBaseView {
         }
         
         //最后一个cell底部画线
-        if indexPath.row == data.count - 1 {
+        /*if indexPath.row == data.count - 1 {
            cell.layer.addSublayer(drawLastLine(width:cell.frame.width,height: cell.frame.height))
-        }
+        }*/
         
         cell.selectionStyle = .none
+        cell.layer.addSublayer(drawLastLine(width:self.bounds.width,height: cell.frame.height))
         
         return cell
     }
@@ -321,13 +420,16 @@ class GameAccountRoleBaseView:UIView,UITableViewDelegate,UITableViewDataSource {
     var data:[AnyObject] = []
     var selectedData:Int?
     var parentView:GameAccountRoleView?
+    var prevData:Int?
 
     
-    init(frame:CGRect,data:[AnyObject],selectedData:Int?) {
+    init(frame:CGRect,data:[AnyObject],selectedData:Int?,prevData:Int?) {
         super.init(frame: frame)
         self.data = data
         self.selectedData = selectedData
+        self.prevData = prevData
         initFrame()
+        initData()
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -339,9 +441,13 @@ class GameAccountRoleBaseView:UIView,UITableViewDelegate,UITableViewDataSource {
         self.tableView = UITableView(frame: CGRect(x: 0, y: 0, width: self.frame.width, height: self.frame.height))
         self.tableView?.delegate = self
         self.tableView?.dataSource = self
+        self.tableView?.separatorStyle = .none
         self.addSubview(tableView!)
     }
     
+    func initData(){
+        
+    }
     
     func numberOfSections(in tableView: UITableView) -> Int {
         return 1

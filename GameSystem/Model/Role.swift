@@ -183,5 +183,34 @@ class RoleUtil {
         return str
     }
     
-    
+    //通过gameAccountId查询角色列表
+    static func anaylsRoleByGameAccountId(gameAccountId:Int,roleList:[Role]?) -> Array<Role>{
+        var roleArr:[Role] = []
+        if gameAccountId == 0  { return roleArr}
+        
+        if roleList == nil || roleList?.count == 0 {
+            let params:Dictionary<String,Int> = ["gameAccount.id": gameAccountId]
+            
+            BaseUtil.loadList(url: DBConstantUtil.queryRolePageList,params: params) { (dataList:NSArray) in
+                for data in dataList {
+                    if (data as AnyObject).isEqual(nil) { continue }
+                    let _data = data as! NSDictionary
+                    let gameAccount = anaylsRole(data: _data)
+                    roleArr.append(gameAccount)
+                }
+            }
+        } else {
+            for role in roleList! {
+                if role.gameAccount?.id == nil {
+                    continue
+                }
+                
+                if role.gameAccount?.id == gameAccountId {
+                    roleArr.append(role)
+                }
+            }
+        }
+        
+        return roleArr
+    }
 }

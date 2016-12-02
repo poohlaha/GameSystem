@@ -8,18 +8,13 @@
 
 import UIKit
 
-class AddShipmentTableViewController: BaseTableViewController,RolePickerViewDelegate {
+class AddShipmentTableViewController: BaseTableViewController,RolePickerViewDelegate,GameAccountRoleBaseViewDelegate {
 
-    @IBOutlet weak var gameTextField: UITextField!
-    @IBOutlet weak var gameLabel: UILabel!
+    
+    @IBOutlet weak var gameAccountRoleBtn: UIButton!
+    @IBOutlet weak var gameAccountRoleLabel: UILabel!
     @IBOutlet weak var gameIdLabel: UILabel!
-    
-    @IBOutlet weak var gameAccountTextField: UITextField!
-    @IBOutlet weak var gameAccountLabel: UILabel!
     @IBOutlet weak var gameAccountIdLabel: UILabel!
-    
-    @IBOutlet weak var roleTextField: UITextField!
-    @IBOutlet weak var roleLabel: UILabel!
     @IBOutlet weak var roleIdLabel: UILabel!
     
     @IBOutlet weak var consigneeTextField: UITextField!
@@ -31,13 +26,17 @@ class AddShipmentTableViewController: BaseTableViewController,RolePickerViewDele
     @IBOutlet weak var isPaymentLabel: UILabel!
     @IBOutlet weak var isBuybackLabel: UILabel!
 
+    @IBOutlet weak var roleCurrencyLabel: UILabel!
     var roleId:Int? //如果有角色id表示直接行踪角色进行发货
     var role:Role?
     
     var navigationHeight:CGFloat = 0
-    
     var isPaymentPickerView:RolePickerView?
     var isBuybackPickerView:RolePickerView?
+    
+    private var gameList:[Game] = []
+    private var gameAccountList:[GameAccount] = []
+    private var roleList:[Role] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -62,22 +61,41 @@ class AddShipmentTableViewController: BaseTableViewController,RolePickerViewDele
     func initFrame(){
         createLeftBarItem()
         if self.roleId != nil {
-            gameTextField.isHidden = true
-            gameAccountTextField.isHidden = true
-            roleTextField.isHidden = true
+            gameAccountRoleBtn.isHidden = true
             
             self.createLoadingView()
             startRequestTimer(info:nil,selector: #selector(AddShipmentTableViewController.initData))
         } else {
-            gameLabel.isHidden = true
-            gameAccountLabel.isHidden = true
-            roleLabel.isHidden = true
+            gameAccountRoleLabel.isHidden = true
+            
+            self.createLoadingView()
+            startRequestTimer(info:nil,selector: #selector(AddShipmentTableViewController.initList))
+            gameAccountRoleBtn.contentHorizontalAlignment = .left
         }
         
         isPaymentBtn.setTitle(ConstantUtil.isRolePaymentData[1], for: .normal)
         isBuybackBtn.setTitle(ConstantUtil.isRoleBuybackData[1], for: .normal)
         isPaymentLabel.text = "\(ConstantUtil.isRolePaymentDataValue[1])"
         isBuybackLabel.text = "\(ConstantUtil.isRoleBuybackDataValue[1])"
+        
+     }
+    
+    //获取gamelist,gameaccountlist,rolelist
+    func initList(timer:Timer){
+        let list:Dictionary<String,Array<AnyObject>> = GameUtil.loadAllList(callback:{
+            self.removeLoadingView()
+        }())
+        
+        if list.isEmpty || list.count == 0 { return }
+        
+        self.gameList = list["game"] as? [Game] ?? []
+        self.gameAccountList = list["gameAccount"] as? [GameAccount] ?? []
+        self.roleList = list["role"] as? [Role] ?? []
+    }
+
+    let gameAccountRolePickerViewHeight:CGFloat = 200
+    func createGameAccountRoleView(gameData:[Game],gameAccountData:[GameAccount],roleData:[Role],gameSelectedData: Int?,gameAccountSelectedData:Int?,roleSelectedData:Int?) -> GameAccountRoleView {
+        return GameAccountRoleView(frame: CGRect(x: 0, y: UIScreen.main.bounds.height - gameAccountRolePickerViewHeight, width: UIScreen.main.bounds.width, height: gameAccountRolePickerViewHeight), gameData:gameData,gameAccountData:gameAccountData,roleData:roleData,gameSelectedData: gameSelectedData,gameAccountSelectedData:gameAccountSelectedData,roleSelectedData:roleSelectedData)
     }
     
     //是否付款点击事件
@@ -128,21 +146,29 @@ class AddShipmentTableViewController: BaseTableViewController,RolePickerViewDele
             self.removeLoadingView()
         }())
         
-        if role == nil { return }
+        if self.role == nil { return }
         
-        roleLabel.text = role?.roleName ?? ""
+        let roleName = role?.roleName ?? ""
+        var gameName:String = ""
+        var accountName:String = ""
+        
         roleIdLabel.text = "\(role?.id!)"
         if role?.gameAccount != nil {
-            gameAccountLabel.text = role?.gameAccount?.nickName ?? ""
+            accountName = role?.gameAccount?.nickName ?? ""
             gameAccountIdLabel.text = "\(role?.gameAccount?.id!)"
             
             if role?.gameAccount?.game != nil {
-                gameLabel.text = role?.gameAccount?.game?.gameName ?? ""
+                gameName = role?.gameAccount?.game?.gameName ?? ""
                 gameIdLabel.text = "\(role?.gameAccount?.game?.id!)"
             }
         }
+        
+        let roleCurrency = role?.currency! ?? 0
+        roleCurrencyLabel.text = "\(roleCurrency)"
+        roleCurrencyLabel.textColor = ComponentUtil.fontColorGold
+        
+        gameAccountRoleLabel.text = gameName + " " + accountName + " " + roleName
     }
-    
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
@@ -169,9 +195,6 @@ class AddShipmentTableViewController: BaseTableViewController,RolePickerViewDele
     
     //取消键盘
     func reginKeyboard(){
-        self.gameTextField.resignFirstResponder()
-        self.gameAccountTextField.resignFirstResponder()
-        self.roleTextField.resignFirstResponder()
         self.consigneeTextField.resignFirstResponder()
         self.cargoTextField.resignFirstResponder()
         self.shipCurrencyTextField.resignFirstResponder()
@@ -184,6 +207,17 @@ class AddShipmentTableViewController: BaseTableViewController,RolePickerViewDele
         let role = Role()
         if self.roleId != nil {
             role.id = self.roleId!
+            shipment.role = role
+        } else {//验证游戏,账号,角色
+            var roleId:Int?
+            let roleIdText = roleIdLabel.text ?? ""
+            
+            if roleIdText.isEmpty {
+                self.alert(title: "请选择发货角色!")
+                return
+            }
+            
+            role.id = Int(roleIdText)
             shipment.role = role
         }
         
@@ -235,7 +269,7 @@ class AddShipmentTableViewController: BaseTableViewController,RolePickerViewDele
                 return
             }
             
-            let alertController = UIAlertController(title: RoleUtil.ROLEEDIT_SUCCESS, message: "", preferredStyle: UIAlertControllerStyle.alert)
+            let alertController = UIAlertController(title: ShipmentUtil.SHIPMENTADD_SUCCESS, message: "", preferredStyle: UIAlertControllerStyle.alert)
             let okAction = UIAlertAction(title: "确定", style: UIAlertActionStyle.default, handler: { (UIAlertAction) in
                 self.navigationController?.popViewController(animated: true)
             })
@@ -245,5 +279,71 @@ class AddShipmentTableViewController: BaseTableViewController,RolePickerViewDele
         }
     }
     
-   
+    func gameAccountRoleBaseViewCallback(data: NSDictionary, view: GameAccountRoleView?) {
+        let game = data["game"] as? Game ?? Game()
+        let gameAccount = data["gameAccount"] as? GameAccount ?? GameAccount()
+        let role = data["role"] as? Role ?? Role()
+        
+        let gameName:String = game.gameName ?? ""
+        let accountName:String = gameAccount.nickName ?? ""
+        let roleName = role.roleName ?? ""
+        
+        if game.id != nil {
+            gameIdLabel.text = "\(game.id!)"
+        }
+        
+        if gameAccount.id != nil {
+            gameAccountIdLabel.text = "\(gameAccount.id!)"
+        }
+        
+        if role.id != nil {
+            roleIdLabel.text = "\(role.id!)"
+        }
+        
+        gameAccountRoleBtn.setTitle(gameName + " " + accountName + " " + roleName, for: .normal)
+        view?.removeFromSuperview()
+        
+        let params:Dictionary<String,Any> = ["id": role.id!]
+        let r = RoleUtil.queryRoleById(params: params,callback: {
+           
+        }())
+        
+        let roleCurrency = r.currency!
+        roleCurrencyLabel.text = "\(roleCurrency)"
+        roleCurrencyLabel.textColor = ComponentUtil.fontColorGold
+    }
+    
+    /*var gameView:GameAccountRoleView?
+    var gameAccountViw:GameAccountRoleView?
+    var roleView:GameAccountRoleView?*/
+    //游戏账号角色点击事件
+    @IBAction func gameAccountRoleClick(_ sender: AnyObject) {
+        reginKeyboard()
+        var gameId:Int?
+        var gameAccountId:Int?
+        var roleId:Int?
+        
+        let gameIdText = gameIdLabel.text ?? ""
+        let gameAccountIdText = gameAccountIdLabel.text ?? ""
+        let roleIdText = roleIdLabel.text ?? ""
+        
+        if !gameIdText.isEmpty {
+            gameId = Int(gameIdText)
+        }
+        
+        if !gameAccountIdText.isEmpty {
+            gameAccountId = Int(gameAccountIdText)
+        }
+        
+        if !roleIdText.isEmpty {
+            roleId = Int(roleIdText)
+        }
+        
+        let gameAccountRoleView = createGameAccountRoleView(gameData: self.gameList, gameAccountData: self.gameAccountList, roleData: self.roleList, gameSelectedData: gameId, gameAccountSelectedData: gameAccountId, roleSelectedData: roleId)
+        gameAccountRoleView.viewDelegate = self
+        let controller = self.parent
+        controller?.view.addSubview(gameAccountRoleView)
+    }
+    
+    
 }

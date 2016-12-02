@@ -40,6 +40,13 @@ class GameAccountUtil {
             gameAccount.lastUpdateDateString = BaseUtil.formatDate(date: lastUpdateDate)
         }
         
+        //game
+        let gameArr = data["game"] as! NSDictionary
+        if gameArr.isEqual(nil) || gameArr.count == 0 {
+            return gameAccount
+        }
+        
+        gameAccount.game = GameUtil.anaylsGame(data: gameArr)
         return gameAccount
     }
     
