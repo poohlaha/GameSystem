@@ -18,6 +18,8 @@ class ShipmentQueryTableViewCell: UITableViewCell {
     var cargoView:UIView?//货物
     var shipMoneyView:UIView?//发货金额
     var dateView:UIView?
+    var isPaymentView:UIView?//是否付款
+    var isBuybackView:UIView?//是否买回
     
     let topOrBottomPadding:CGFloat = 5
     let moduleSize:CGFloat = 4//模块个数
@@ -27,7 +29,7 @@ class ShipmentQueryTableViewCell: UITableViewCell {
     
     let leftViewImage:UIImage = UIImage(named: "game-icon")!
     
-    let roleViewLabelFont = UIFont.boldSystemFont(ofSize: 20)
+    let roleViewLabelFont = UIFont.boldSystemFont(ofSize: 16)
     let viewLabelFont = UIFont(name: ComponentUtil.fontName, size: 16)
     let viewLabelFontBold = UIFont.boldSystemFont(ofSize: 16)
     let cargoFontBold = UIFont.boldSystemFont(ofSize: 16)
@@ -79,17 +81,27 @@ class ShipmentQueryTableViewCell: UITableViewCell {
         //计算时间view,放于rowView右侧,右靠齐
         dateView = UIView(frame: CGRect(x: (self.roleView?.frame.origin.x)! + roleViewWidth, y: topOrBottomPadding * 2, width: rightViewWidth - roleViewWidth, height: roleViewHeight))
         
+        let cargoViewHeight:CGFloat = ComponentUtil.getLabelRect(width: roleViewWidth, height: 0, str: constantStr, font: cargoFontBold).size.height
+        
+        cargoView = UIView(frame: CGRect(x: (self.roleView?.frame.origin.x)!, y: (self.roleView?.frame.origin.y)! + roleViewHeight + topOrBottomPadding, width: rightViewWidth, height: cargoViewHeight))
+        
         let eachWidth:CGFloat = rightViewWidth / moduleSize
         let bottomBeginY:CGFloat = cellHeight! - topOrBottomPadding - bottomHeight
         
         shipmentCurrencyView = UIView(frame:CGRect(x: (self.roleView?.frame.origin.x)!, y: bottomBeginY, width: eachWidth, height: bottomHeight))
-        cargoView = UIView(frame: CGRect(x: (self.shipmentCurrencyView?.frame.origin.x)! + eachWidth, y: bottomBeginY, width: eachWidth, height: bottomHeight))
-        shipMoneyView = UIView(frame: CGRect(x: (self.cargoView?.frame.origin.x)! + eachWidth, y: bottomBeginY, width: eachWidth, height: bottomHeight))
+        
+        shipMoneyView = UIView(frame: CGRect(x: (self.shipmentCurrencyView?.frame.origin.x)! + eachWidth, y: bottomBeginY, width: eachWidth, height: bottomHeight))
+        
+        isPaymentView = UIView(frame:CGRect(x: (self.shipMoneyView?.frame.origin.x)! + eachWidth, y: bottomBeginY, width: eachWidth, height: bottomHeight))
+        
+        isBuybackView = UIView(frame:CGRect(x: (self.isPaymentView?.frame.origin.x)! + eachWidth, y: bottomBeginY, width: eachWidth, height: bottomHeight))
         
         self.contentView.addSubview(roleView!)
         self.contentView.addSubview(shipmentCurrencyView!)
         self.contentView.addSubview(cargoView!)
         self.contentView.addSubview(shipMoneyView!)
+        self.contentView.addSubview(isPaymentView!)
+        self.contentView.addSubview(isBuybackView!)
         self.contentView.addSubview(dateView!)
         self.contentView.addSubview(leftView!)
     }

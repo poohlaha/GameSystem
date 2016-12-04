@@ -27,6 +27,8 @@ class ShipmentUtil {
     
     static let SHIPMENTADD_SUCCESS = "添加发货记录成功!"
     static let SHIPMENTADD_FAILED = "添加发货记录失败!"
+    static let SHIPMENTEDIT_SUCCESS = "添加发货记录成功!"
+    static let SHIPMENTEDIT_FAILED = "添加发货记录失败!"
     static let SHIPMENTADD_TIP = "当前操作未保存,是否需要保存?"
     
     //解析Role数据
@@ -67,8 +69,8 @@ class ShipmentUtil {
         return shipment
     }
     
-    static func saveShipment(shipment:Shipment,callback:@escaping (_ resultCode:String,_ resultMessage:String)->()) {
-        BaseUtil.load(url: DBConstantUtil.saveShipment,params: convertToStr(shipment: shipment)) { (result:NSDictionary) in
+    static func saveOrUpdateShipment(url:String,shipment:Shipment,callback:@escaping (_ resultCode:String,_ resultMessage:String)->()) {
+        BaseUtil.load(url: url,params: convertToStr(shipment: shipment)) { (result:NSDictionary) in
             let json = result as! Dictionary<String,Any>
             let resultCode = json["resultCode"] as? String
             let resultMessage = json["resultMessage"]  as? String
@@ -109,7 +111,16 @@ class ShipmentUtil {
         return totalList
     }
     
-
+    static func queryShipmentById(params:Dictionary<String,Any>,callback:()) -> Shipment{
+        var shipment:Shipment = Shipment()
+        
+        BaseUtil.load(url: DBConstantUtil.queryShipmentById,params: params) { (result:NSDictionary) in
+            shipment = anaylsShipment(data: result)
+            callback
+        }
+        
+        return shipment
+    }
 
 }
 

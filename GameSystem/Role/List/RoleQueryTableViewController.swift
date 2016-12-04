@@ -130,6 +130,9 @@ class RoleQueryTableViewController: BaseTableViewController {
         let longPressGesutre = self.initLongPressGestureRecognizer(action: #selector(RoleQueryTableViewController.handleLongpressGesture(gestrue:)))
         longPressGesutre.data = [role]
         cell.contentView.addGestureRecognizer(longPressGesutre)
+        
+        cell.selectedBackgroundView = UIView()
+        cell.selectedBackgroundView?.backgroundColor = setSelectCellBackgroundColor()
         return cell
     }
     
@@ -200,14 +203,8 @@ class RoleQueryTableViewController: BaseTableViewController {
             alert = tap.data?[1] as? GameBottomAlert
         }
         
-        
-        //根据storyboard获取controller
-        let sb = UIStoryboard(name:"shipment", bundle: nil)
-        let addShipmentTableViewController = sb.instantiateViewController(withIdentifier: "AddShipmentTableViewController") as! AddShipmentTableViewController
-        addShipmentTableViewController.hidesBottomBarWhenPushed = true
-        addShipmentTableViewController.roleId = roleId
-        self.navigationController?.pushViewController(addShipmentTableViewController, animated: true)
-        alert?.removeFromSuperview()
+       self.addShipmentController(roleId: roleId,flag: 0,shipment: nil)
+       alert?.removeFromSuperview()
     }
     
     //处理修改角色
@@ -258,5 +255,26 @@ class RoleQueryTableViewController: BaseTableViewController {
     override func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
         return 0.1
     }
+    
+    
+    //MARKS: 开启tableview编辑模式
+    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
+        
+    }
+    
+    //MARKS: 自定义向右滑动菜单
+    override func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
+        let shipAction = UITableViewRowAction(style: .normal, title: "发货") { (action, indexPath) in
+            let role:Role = self.totalList[indexPath.row]
+            self.addShipmentController(roleId: role.id,flag: 0,shipment: nil)
+            //让cell可以自动回到默认状态，所以需要退出编辑模式
+            tableView.isEditing = false
+        }
+        
+        shipAction.backgroundColor = ComponentUtil.fontColorGreen
+        
+        return [shipAction]
+    }
+    
 
 }

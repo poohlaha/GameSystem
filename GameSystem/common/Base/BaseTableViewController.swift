@@ -32,17 +32,7 @@ class BaseTableViewController: UITableViewController {
         return self.parent?.navigationController?.topViewController as? RoleManageTabBarController
     }
     
-    //取消点击事件
-    func setCellStyleNone(){
-        for i in 0...tableView.numberOfSections - 1 {
-            for j in 0...tableView.numberOfRows(inSection: i) - 1 {
-                let indexPath = NSIndexPath(row: j, section: i)
-                let cell = tableView.cellForRow(at: indexPath as IndexPath)
-                cell?.selectionStyle = .none
-            }
-        }
-    }
-
+    
     //MARKS: 创建加载View
     func createLoadingView(){
         if loadingView == nil {
@@ -73,7 +63,9 @@ class BaseTableViewController: UITableViewController {
         self.navigationItem.leftBarButtonItem = leftBarItem
     }
     
+    //返回事件
     func back(){
+        self.removeLoadingView()
         self.navigationController?.popViewController(animated: true)
         //self.getRoleManageTabBar()?.navigationController?.popViewController(animated: true)
     }
@@ -201,6 +193,28 @@ class BaseTableViewController: UITableViewController {
         self.isKeyBoardShow = false
     }
     
+    func addShipmentController(roleId:Int?,flag:Int?,shipment:Shipment?){
+        //根据storyboard获取controller
+        let sb = UIStoryboard(name:"shipment", bundle: nil)
+        let addShipmentTableViewController = sb.instantiateViewController(withIdentifier: "AddShipmentTableViewController") as! AddShipmentTableViewController
+        addShipmentTableViewController.hidesBottomBarWhenPushed = true
+        addShipmentTableViewController.roleId = roleId
+        if flag != nil {
+            addShipmentTableViewController.flag = flag!
+        }else{
+            addShipmentTableViewController.flag = 0
+        }
+        
+        if shipment != nil {
+            addShipmentTableViewController.shipment = shipment!
+        }
+        self.navigationController?.pushViewController(addShipmentTableViewController, animated: true)
+    }
+    
+    
+    func setSelectCellBackgroundColor() -> UIColor {
+        return ComponentUtil.selectCellBgColor
+    }
 
     //设置Section字体大小
    /* override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
@@ -208,4 +222,34 @@ class BaseTableViewController: UITableViewController {
         view.backgroundColor = getBackgroundColor()
         return view
     }*/
+}
+
+class BaseStaticTableViewController:BaseTableViewController {
+    
+    override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        if section == 0 {
+            return 30
+        }else{
+            return 0.1
+        }
+        
+    }
+    
+    //调整section距离,0.1时为最小
+    override func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
+        return 30
+    }
+    
+    //取消点击事件
+    func setCellStyleNone(){
+        for i in 0...tableView.numberOfSections - 1 {
+            for j in 0...tableView.numberOfRows(inSection: i) - 1 {
+                let indexPath = NSIndexPath(row: j, section: i)
+                let cell = tableView.cellForRow(at: indexPath as IndexPath)
+                cell?.selectionStyle = .none
+            }
+        }
+    }
+
+
 }

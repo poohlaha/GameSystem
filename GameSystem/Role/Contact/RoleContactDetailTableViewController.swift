@@ -8,7 +8,7 @@
 
 import UIKit
 
-class RoleContactDetailTableViewController: BaseTableViewController {
+class RoleContactDetailTableViewController: BaseStaticTableViewController {
 
     @IBOutlet weak var headerImageView: UIImageView!
     @IBOutlet weak var roleNameLabel: UILabel!
@@ -135,12 +135,6 @@ class RoleContactDetailTableViewController: BaseTableViewController {
     
     //发货事件
     @IBAction func shipmentBtnClick(_ sender: AnyObject) {
-        //根据storyboard获取controller
-        let sb = UIStoryboard(name:"shipment", bundle: nil)
-        let addShipmentTableViewController = sb.instantiateViewController(withIdentifier: "AddShipmentTableViewController") as! AddShipmentTableViewController
-        
-        addShipmentTableViewController.hidesBottomBarWhenPushed = true
-        addShipmentTableViewController.roleId = self.roleId
-        self.navigationController?.pushViewController(addShipmentTableViewController, animated: true)
+        addShipmentController(roleId: self.roleId,flag: 0,shipment: nil)
     }
 }

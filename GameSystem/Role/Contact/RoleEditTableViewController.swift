@@ -9,7 +9,7 @@
 import UIKit
 
 //编辑角色
-class RoleEditTableViewController: BaseTableViewController,RolePickerViewDelegate,GameAccountRoleBaseViewDelegate {
+class RoleEditTableViewController: BaseStaticTableViewController,RolePickerViewDelegate,GameAccountRoleBaseViewDelegate {
 
     @IBOutlet weak var roleNameTextField: UITextField!
     @IBOutlet weak var roleLevelTextField: UITextField!
@@ -40,6 +40,7 @@ class RoleEditTableViewController: BaseTableViewController,RolePickerViewDelegat
     //返回事件,添加提示对话框
    override func back() {
         let alertController = ComponentUtil.alert(title: RoleUtil.ROLEEDIT_TIP, message: "", isShowCancel: true, cancelCallBack: { (alertAction) in
+                self.removeLoadingView()
                 self.navigationController?.popViewController(animated: true)
             }) { (alertAction) in
                 self.updateRole()

@@ -23,6 +23,7 @@ class ComponentUtil: NSObject {
     static let mainFrame = UIScreen.main.bounds
     static let statusBarFrame = UIApplication.shared.statusBarFrame//status bar
     static let backImage:UIImage = UIImage(named: "back")!
+    static let selectCellBgColor = UIColor(red: 255/255, green: 228/255, blue: 141/255, alpha: 0.8)
     
 
     //MARKS: 创建Label

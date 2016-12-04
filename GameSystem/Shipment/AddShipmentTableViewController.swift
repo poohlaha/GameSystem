@@ -8,7 +8,7 @@
 
 import UIKit
 
-class AddShipmentTableViewController: BaseTableViewController,RolePickerViewDelegate,GameAccountRoleBaseViewDelegate {
+class AddShipmentTableViewController: BaseStaticTableViewController,RolePickerViewDelegate,GameAccountRoleBaseViewDelegate {
 
     
     @IBOutlet weak var gameAccountRoleBtn: UIButton!
@@ -33,6 +33,9 @@ class AddShipmentTableViewController: BaseTableViewController,RolePickerViewDele
     var navigationHeight:CGFloat = 0
     var isPaymentPickerView:RolePickerView?
     var isBuybackPickerView:RolePickerView?
+    
+    var flag:Int = 0//0---添加 1---修改
+    var shipment:Shipment?
     
     private var gameList:[Game] = []
     private var gameAccountList:[GameAccount] = []
@@ -168,6 +171,25 @@ class AddShipmentTableViewController: BaseTableViewController,RolePickerViewDele
         roleCurrencyLabel.textColor = ComponentUtil.fontColorGold
         
         gameAccountRoleLabel.text = gameName + " " + accountName + " " + roleName
+        
+        if self.flag == 1 && self.shipment != nil {
+            self.consigneeTextField.text = self.shipment?.consignee ?? ""
+            self.cargoTextField.text = self.shipment?.cargo ?? ""
+            self.shipCurrencyTextField.text = "\(self.shipment?.shipCurrency ?? 0)"
+            self.buyBackCurrencyTextField.text = "\(self.shipment?.buyBackCurrency ?? 0)"
+            if self.shipment?.isPayment != nil {
+                self.isPaymentLabel.text = "\(self.shipment?.isPayment!)"
+                let isPaymentStr:String = (self.shipment?.isPayment == 0) ? ConstantUtil.isRolePaymentData[0] : ConstantUtil.isRolePaymentData[1]
+                self.isPaymentBtn.setTitle(isPaymentStr, for: .normal)
+            }
+            
+            if self.shipment?.isBuyback != nil {
+                self.isBuybackLabel.text = "\(self.shipment?.isBuyback!)"
+                 let isBuybackStr:String = (self.shipment?.isBuyback == 0) ? ConstantUtil.isRoleBuybackData[0] : ConstantUtil.isRoleBuybackData[1]
+                self.isBuybackBtn.setTitle(isBuybackStr, for: .normal)
+            }
+        }
+        
     }
 
     override func didReceiveMemoryWarning() {
@@ -262,21 +284,37 @@ class AddShipmentTableViewController: BaseTableViewController,RolePickerViewDele
     
     func add(timer: Timer){
         let shipment = timer.userInfo as! Shipment
-        ShipmentUtil.saveShipment(shipment: shipment){ (resultCode:String,resultMessage:String) in
-            self.removeLoadingView()
-            if resultCode != "success" {
-                self.alert(title: resultMessage)
-                return
+        if flag == 0 {
+            ShipmentUtil.saveOrUpdateShipment(url: DBConstantUtil.saveShipment,shipment: shipment){ (resultCode:String,resultMessage:String) in
+                self.saveOrUpdateCallback(resultCode: resultCode,resultMessage: resultMessage)
             }
-            
-            let alertController = UIAlertController(title: ShipmentUtil.SHIPMENTADD_SUCCESS, message: "", preferredStyle: UIAlertControllerStyle.alert)
-            let okAction = UIAlertAction(title: "确定", style: UIAlertActionStyle.default, handler: { (UIAlertAction) in
-                self.navigationController?.popViewController(animated: true)
-            })
-            
-            alertController.addAction(okAction)
-            self.present(alertController, animated: true, completion: nil)
+        }else if flag == 1 {//修改
+            shipment.id = self.shipment?.id
+            ShipmentUtil.saveOrUpdateShipment(url: DBConstantUtil.updateShipment,shipment: shipment){ (resultCode:String,resultMessage:String) in
+                self.saveOrUpdateCallback(resultCode: resultCode,resultMessage: resultMessage)
+            }
         }
+    }
+    
+    func saveOrUpdateCallback(resultCode:String,resultMessage:String){
+        self.removeLoadingView()
+        if resultCode != "success" {
+            self.alert(title: resultMessage)
+            return
+        }
+        
+        var title = ShipmentUtil.SHIPMENTADD_SUCCESS
+        if flag == 1 {
+            title = ShipmentUtil.SHIPMENTADD_SUCCESS
+        }
+        
+        let alertController = UIAlertController(title: title, message: "", preferredStyle: UIAlertControllerStyle.alert)
+        let okAction = UIAlertAction(title: "确定", style: UIAlertActionStyle.default, handler: { (UIAlertAction) in
+            self.navigationController?.popViewController(animated: true)
+        })
+        
+        alertController.addAction(okAction)
+        self.present(alertController, animated: true, completion: nil)
     }
     
     func gameAccountRoleBaseViewCallback(data: NSDictionary, view: GameAccountRoleView?) {

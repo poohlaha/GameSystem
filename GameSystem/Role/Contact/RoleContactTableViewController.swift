@@ -237,6 +237,9 @@ class RoleContactTableViewController: BaseTableViewController {
         let roleNameLabel:UILabel = ComponentUtil.createLabel(rect: CGRect(x:0,y:0,width:cell.roleNameView!.frame.width,height:cell.roleNameView!.frame.height), content: "\(contact.roleName!)", color: cell.roleNameLabelColor, textAlignment: .left, background: UIColor.clear, font:cell.roleNameLabelFont!)
         cell.roleNameView?.addSubview(roleNameLabel)
 
+        cell.selectedBackgroundView = UIView()
+        cell.selectedBackgroundView?.backgroundColor = setSelectCellBackgroundColor()
+        
         return cell
     }
     
@@ -310,13 +313,7 @@ class RoleContactTableViewController: BaseTableViewController {
         let shipAction = UITableViewRowAction(style: .normal, title: "发货") { (action, indexPath) in
             let session = self.totalList[indexPath.section]
             let contact = session.contacts[indexPath.row] as! Role
-            
-            //根据storyboard获取controller
-            let sb = UIStoryboard(name:"shipment", bundle: nil)
-            let addShipmentTableViewController = sb.instantiateViewController(withIdentifier: "AddShipmentTableViewController") as! AddShipmentTableViewController
-            addShipmentTableViewController.hidesBottomBarWhenPushed = true
-            addShipmentTableViewController.roleId = contact.id
-            self.navigationController?.pushViewController(addShipmentTableViewController, animated: true)
+            self.addShipmentController(roleId: contact.id,flag: 0,shipment: nil)
             
             //让cell可以自动回到默认状态，所以需要退出编辑模式
             tableView.isEditing = false
